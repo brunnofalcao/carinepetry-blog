@@ -3,94 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Dra. Carine Petry - Investigação Clínica de Alta Complexidade. Medicina do Sono especializada em SAM, SED e Covid Longa.">
-    <title>Dra. Carine Petry | Investigação Clínica de Alta Complexidade</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
+    <title>Dra. Carine Petry | Medicina do Sono • Investigação de Alta Complexidade</title>
+    <meta name="description" content="Especialista em Medicina do Sono. Investigação profunda de SAM, SED e Covid Longa. CRM-DF 15342.">
     <style>
-        :root {
-            /* Cores Principais */
-            --borgonha-profundo: #4A1942;
-            --magenta-vibrante: #9D174D;
-            --creme-suave: #FFF9FB;
-            
-            /* Paleta Expandida - Borgonha */
-            --borgonha-escuro: #2D0F27;
-            --borgonha-medio: #3A1335;
-            --borgonha-claro: #6B2359;
-            
-            /* Paleta Expandida - Magenta */
-            --magenta-escuro: #7E1139;
-            --magenta-medio: #B91C55;
-            --magenta-claro: #D946A6;
-            
-            /* Neutros */
-            --cinza-escuro: #1F1F1F;
-            --cinza-medio: #6B6B6B;
-            --cinza-claro: #E5E5E5;
-            --branco-puro: #FFFFFF;
-            
-            /* Tipografia */
-            --font-display: 'Cormorant Garamond', serif;
-            --font-body: 'Inter', sans-serif;
-            
-            /* Espaçamentos */
-            --spacing-xs: 0.5rem;
-            --spacing-sm: 1rem;
-            --spacing-md: 2rem;
-            --spacing-lg: 4rem;
-            --spacing-xl: 6rem;
-            
-            /* Transições */
-            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
+        /* RESET & BASE */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         
-        html {
-            scroll-behavior: smooth;
-            overflow-x: hidden;
+        /* Importando Fontes Brandbook */
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            /* Cores Brandbook Oficial */
+            --borgonha-profundo: #4A1942;
+            --magenta-vibrante: #9D174D;
+            --creme-luminoso: #FFF9FB;
+            --cinza-neutro: #4A4A4A;
+            --branco: #FFFFFF;
+            
+            /* Typography Brandbook */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', sans-serif;
         }
         
         body {
             font-family: var(--font-body);
-            font-size: 16px;
-            line-height: 1.7;
-            color: var(--cinza-escuro);
-            background-color: var(--creme-suave);
-            overflow-x: hidden;
+            background-color: var(--creme-luminoso);
+            color: var(--cinza-neutro);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
-        /* =========================
-           HEADER & NAVIGATION
-        ========================= */
-        
+        /* HEADER */
         .header {
-            position: fixed;
+            background: var(--branco);
+            border-bottom: 1px solid rgba(93, 43, 61, 0.1);
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
             z-index: 1000;
-            background: rgba(255, 249, 251, 0.95);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(74, 25, 66, 0.1);
-            transition: var(--transition-smooth);
-        }
-        
-        .header.scrolled {
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
         
         .header-container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 1.5rem 2rem;
             display: flex;
@@ -99,258 +58,133 @@
         }
         
         .logo {
-            height: 50px;
-            transition: var(--transition-smooth);
-        }
-        
-        .logo:hover {
-            transform: scale(1.05);
-        }
-        
-        .nav-menu {
-            display: flex;
-            gap: 3rem;
-            list-style: none;
-        }
-        
-        .nav-menu a {
-            font-family: var(--font-body);
-            font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 1.5rem;
+            font-weight: 600;
             color: var(--borgonha-profundo);
             text-decoration: none;
-            position: relative;
-            transition: var(--transition-smooth);
-            letter-spacing: 0.3px;
         }
         
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--magenta-vibrante);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-menu a:hover::after {
-            width: 100%;
-        }
-        
-        .cta-button {
-            padding: 0.8rem 2rem;
-            background: linear-gradient(135deg, var(--borgonha-profundo), var(--magenta-vibrante));
-            color: var(--branco-puro);
-            border: none;
-            border-radius: 30px;
-            font-family: var(--font-body);
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            box-shadow: 0 4px 15px rgba(157, 23, 77, 0.2);
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(157, 23, 77, 0.3);
-        }
-        
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            color: var(--borgonha-profundo);
-            cursor: pointer;
-        }
-        
-        /* =========================
-           HERO SECTION
-        ========================= */
-        
-        .hero {
-            min-height: 100vh;
+        .nav {
             display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            padding-top: 100px;
+            gap: 2rem;
         }
         
-        .hero-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, 
-                var(--creme-suave) 0%,
-                rgba(255, 249, 251, 0.8) 50%,
-                rgba(217, 70, 166, 0.05) 100%
-            );
-            z-index: 0;
+        .nav a {
+            color: var(--cinza-neutro);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
         }
         
-        .hero-pattern {
-            position: absolute;
-            top: 0;
-            right: -10%;
-            width: 50%;
-            height: 100%;
-            opacity: 0.03;
-            background-image: 
-                repeating-linear-gradient(45deg, var(--borgonha-profundo) 0, var(--borgonha-profundo) 1px, transparent 0, transparent 50%),
-                repeating-linear-gradient(-45deg, var(--magenta-vibrante) 0, var(--magenta-vibrante) 1px, transparent 0, transparent 50%);
-            background-size: 40px 40px;
-            animation: patternMove 20s linear infinite;
+        .nav a:hover {
+            color: var(--borgonha-profundo);
         }
         
-        @keyframes patternMove {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(40px); }
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, var(--marfim-suave) 0%, var(--branco) 100%);
+            padding: 6rem 2rem 4rem;
         }
         
         .hero-container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 1;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
         }
         
-        .hero-content {
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards;
-        }
-        
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-        }
-        
         .hero-label {
-            font-family: var(--font-body);
+            display: inline-block;
+            background: var(--borgonha-profundo);
+            color: var(--branco);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
             font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--magenta-vibrante);
-            margin-bottom: 1rem;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.2s forwards;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
         }
         
         .hero-title {
-            font-family: var(--font-display);
-            font-size: 4rem;
-            font-weight: 500;
-            line-height: 1.1;
+            font-size: 3rem;
+            line-height: 1.2;
             color: var(--borgonha-profundo);
-            margin-bottom: 1.5rem;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.4s forwards;
+            font-weight: 600;
+            font-family: var(--font-display);
+            margin-bottom: 1rem;
         }
         
         .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--magenta-vibrante);
+            font-weight: 300;
             font-family: var(--font-display);
-            font-size: 1.8rem;
-            font-weight: 400;
-            color: var(--magenta-medio);
-            margin-bottom: 2rem;
-            font-style: italic;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.6s forwards;
+            margin-bottom: 1.5rem;
         }
         
         .hero-description {
             font-size: 1.1rem;
+            color: var(--cinza-neutro);
+            margin-bottom: 2rem;
             line-height: 1.8;
-            color: var(--cinza-medio);
-            margin-bottom: 3rem;
-            max-width: 500px;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.8s forwards;
         }
         
-        .hero-ctas {
-            display: flex;
-            gap: 1.5rem;
-            opacity: 0;
-            animation: fadeInUp 1s ease 1s forwards;
+        .cta-button {
+            background: var(--borgonha-profundo);
+            color: var(--branco);
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: var(--font-system);
         }
         
-        .hero-image {
+        .cta-button:hover {
+            background: #4A2230;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(93, 43, 61, 0.2);
+        }
+        
+        /* Foto Profissional */
+        .foto-container {
             position: relative;
-            opacity: 0;
-            animation: fadeInRight 1s ease 0.6s forwards;
+            margin-bottom: 2rem;
         }
         
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        .hero-visual {
+        .foto-profissional {
             width: 100%;
-            height: 600px;
-            background: linear-gradient(135deg, rgba(74, 25, 66, 0.05), rgba(157, 23, 77, 0.05));
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
+            max-width: 400px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(93, 43, 61, 0.2);
+            display: block;
+            margin: 0 auto;
         }
         
-        .hero-visual::before {
-            content: '';
+        .foto-badge {
             position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(217, 70, 166, 0.1) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
-        }
-        
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dourado-discreto);
+            color: var(--borgonha-profundo);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(201, 169, 97, 0.3);
         }
         
         .hero-stats {
-            position: absolute;
-            bottom: -40px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            background: var(--branco-puro);
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
+            margin-top: 2rem;
         }
         
         .stat {
@@ -358,27 +192,25 @@
         }
         
         .stat-number {
-            font-family: var(--font-display);
-            font-size: 2.5rem;
-            font-weight: 600;
-            color: var(--magenta-vibrante);
             display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--borgonha-profundo);
             margin-bottom: 0.5rem;
         }
         
         .stat-label {
+            display: block;
             font-size: 0.9rem;
-            color: var(--cinza-medio);
-            font-weight: 500;
+            color: var(--cinza-neutro);
         }
         
-        /* =========================
-           SECTIONS GERAIS
-        ========================= */
-        
+        /* SECTIONS */
         .section {
-            padding: var(--spacing-xl) 2rem;
-            position: relative;
+            padding: 5rem 2rem;
+            display: block; /* CRITICAL: Garante visibilidade */
+            visibility: visible; /* CRITICAL: Garante visibilidade */
+            opacity: 1; /* CRITICAL: Garante visibilidade */
         }
         
         .section-container {
@@ -388,77 +220,66 @@
         
         .section-header {
             text-align: center;
-            margin-bottom: var(--spacing-lg);
+            margin-bottom: 4rem;
         }
         
         .section-label {
-            font-family: var(--font-body);
-            font-size: 0.85rem;
+            display: inline-block;
+            color: var(--magenta-vibrante);
+            font-size: 0.9rem;
             font-weight: 600;
+            font-family: var(--font-body);
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: var(--magenta-vibrante);
             margin-bottom: 1rem;
         }
         
         .section-title {
-            font-family: var(--font-display);
-            font-size: 3rem;
-            font-weight: 500;
+            font-size: 2.5rem;
             color: var(--borgonha-profundo);
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
+            font-weight: 600;
+            font-family: var(--font-display);
+            line-height: 1.3;
         }
         
-        .section-description {
-            font-size: 1.15rem;
-            line-height: 1.8;
-            color: var(--cinza-medio);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        /* =========================
-           SOBRE
-        ========================= */
-        
+        /* SOBRE */
         .sobre {
-            background: var(--branco-puro);
+            background: var(--branco);
         }
         
         .sobre-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 2fr 1fr;
             gap: 4rem;
-            align-items: center;
-            margin-top: var(--spacing-lg);
         }
         
         .sobre-text h3 {
-            font-family: var(--font-display);
             font-size: 1.8rem;
             color: var(--borgonha-profundo);
+            font-family: var(--font-display);
+            font-weight: 600;
             margin-bottom: 1.5rem;
         }
         
         .sobre-text p {
-            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
             line-height: 1.8;
-            color: var(--cinza-medio);
+            margin-bottom: 1.5rem;
+            color: var(--cinza-neutro);
         }
         
         .credenciais {
-            background: var(--creme-suave);
+            background: rgba(255, 249, 251, 0.5);
             padding: 2rem;
-            border-radius: 15px;
+            border-radius: 12px;
             border-left: 4px solid var(--magenta-vibrante);
         }
         
         .credenciais h4 {
-            font-family: var(--font-display);
             font-size: 1.3rem;
             color: var(--borgonha-profundo);
-            margin-bottom: 1rem;
+            font-family: var(--font-display);
+            margin-bottom: 1.5rem;
         }
         
         .credenciais ul {
@@ -466,276 +287,164 @@
         }
         
         .credenciais li {
-            padding: 0.5rem 0;
-            color: var(--cinza-escuro);
-            position: relative;
-            padding-left: 1.5rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(93, 43, 61, 0.1);
+            font-size: 0.95rem;
         }
         
-        .credenciais li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--magenta-vibrante);
-            font-weight: bold;
+        .credenciais li:last-child {
+            border-bottom: none;
         }
         
-        /* =========================
-           ÁREAS DE ATUAÇÃO
-        ========================= */
-        
+        /* ÁREAS */
         .areas-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2.5rem;
-            margin-top: var(--spacing-lg);
+            gap: 2rem;
+            margin-top: 3rem;
         }
         
         .area-card {
-            background: var(--branco-puro);
-            padding: 3rem 2rem;
-            border-radius: 20px;
-            text-align: center;
-            transition: var(--transition-smooth);
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .area-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--borgonha-profundo), var(--magenta-vibrante));
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-        
-        .area-card:hover::before {
-            transform: scaleX(1);
+            background: var(--branco);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(93, 43, 61, 0.1);
+            transition: all 0.3s;
         }
         
         .area-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(74, 25, 66, 0.15);
-            border-color: var(--magenta-claro);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(93, 43, 61, 0.1);
         }
         
         .area-icon {
-            font-size: 3rem;
+            width: 60px;
+            height: 60px;
+            background: rgba(157, 23, 77, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
             margin-bottom: 1.5rem;
         }
         
         .area-card h3 {
-            font-family: var(--font-display);
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             color: var(--borgonha-profundo);
+            font-family: var(--font-display);
+            font-weight: 600;
             margin-bottom: 1rem;
         }
         
         .area-card p {
-            color: var(--cinza-medio);
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-        }
-        
-        .area-card ul {
-            list-style: none;
-            text-align: left;
-        }
-        
-        .area-card li {
-            padding: 0.4rem 0;
-            color: var(--cinza-escuro);
             font-size: 0.95rem;
-            position: relative;
-            padding-left: 1.5rem;
+            line-height: 1.7;
+            color: var(--cinza-neutro);
         }
         
-        .area-card li::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: var(--magenta-vibrante);
-            font-weight: bold;
-        }
-        
-        /* =========================
-           COMO FUNCIONA
-        ========================= */
-        
+        /* COMO FUNCIONA */
         .como-funciona {
-            background: var(--branco-puro);
+            background: var(--branco);
         }
         
         .processo-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 2rem;
-            margin-top: var(--spacing-lg);
+            margin-top: 3rem;
             position: relative;
-        }
-        
-        .processo-grid::before {
-            content: '';
-            position: absolute;
-            top: 50px;
-            left: 10%;
-            right: 10%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--magenta-claro), var(--borgonha-claro));
-            z-index: 0;
         }
         
         .processo-step {
-            position: relative;
-            z-index: 1;
             text-align: center;
+            position: relative;
         }
         
         .step-number {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 1.5rem;
-            background: linear-gradient(135deg, var(--borgonha-profundo), var(--magenta-vibrante));
+            width: 80px;
+            height: 80px;
+            background: var(--borgonha-profundo);
+            color: var(--branco);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: var(--font-display);
-            font-size: 2.5rem;
-            font-weight: 600;
-            color: var(--branco-puro);
-            box-shadow: 0 10px 30px rgba(157, 23, 77, 0.3);
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
         }
         
         .processo-step h3 {
-            font-family: var(--font-display);
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: var(--borgonha-profundo);
+            font-family: var(--font-display);
+            font-weight: 600;
             margin-bottom: 1rem;
         }
         
         .processo-step p {
-            color: var(--cinza-medio);
+            font-size: 0.95rem;
             line-height: 1.6;
+            color: var(--cinza-neutro);
         }
         
-        /* =========================
-           MANIFESTO
-        ========================= */
-        
-        .manifesto {
-            background: linear-gradient(135deg, var(--borgonha-profundo), var(--borgonha-medio));
-            color: var(--branco-puro);
-            text-align: center;
-            padding: var(--spacing-xl) 2rem;
-        }
-        
-        .manifesto-content {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        
-        .manifesto h2 {
-            font-family: var(--font-display);
-            font-size: 3rem;
-            font-weight: 500;
-            margin-bottom: 2rem;
-            line-height: 1.3;
-        }
-        
-        .manifesto p {
-            font-size: 1.3rem;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-            opacity: 0.95;
-        }
-        
-        .manifesto-highlight {
-            font-family: var(--font-display);
-            font-size: 2rem;
-            font-style: italic;
-            margin: 3rem 0;
-            padding: 2rem;
-            border-top: 2px solid rgba(255, 255, 255, 0.3);
-            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        /* =========================
-           CONTATO
-        ========================= */
-        
+        /* CONTATO */
         .contato {
-            background: var(--creme-suave);
+            background: linear-gradient(135deg, var(--borgonha-profundo) 0%, #4A2230 100%);
+            color: var(--branco);
+        }
+        
+        .contato .section-label {
+            color: var(--magenta-vibrante);
+        }
+        
+        .contato .section-title {
+            color: var(--branco);
         }
         
         .contato-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
-            margin-top: var(--spacing-lg);
+            margin-top: 3rem;
         }
         
         .contato-info h3 {
+            font-size: 1.5rem;
             font-family: var(--font-display);
-            font-size: 2rem;
-            color: var(--borgonha-profundo);
+            font-weight: 600;
             margin-bottom: 2rem;
         }
         
         .contato-item {
             display: flex;
-            align-items: flex-start;
-            gap: 1.5rem;
+            align-items: start;
+            gap: 1rem;
             margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: var(--branco-puro);
-            border-radius: 12px;
-            transition: var(--transition-smooth);
         }
         
-        .contato-item:hover {
-            transform: translateX(10px);
-            box-shadow: 0 5px 20px rgba(74, 25, 66, 0.1);
-        }
-        
-        .contato-icon {
-            font-size: 2rem;
-            color: var(--magenta-vibrante);
-        }
-        
-        .contato-details h4 {
-            font-family: var(--font-display);
+        .contato-item-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 1.2rem;
-            color: var(--borgonha-profundo);
+            flex-shrink: 0;
+        }
+        
+        .contato-item-content h4 {
+            font-size: 1rem;
             margin-bottom: 0.5rem;
+            opacity: 0.9;
         }
         
-        .contato-details p {
-            color: var(--cinza-medio);
-            line-height: 1.6;
-        }
-        
-        .contato-details a {
-            color: var(--magenta-vibrante);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition-smooth);
-        }
-        
-        .contato-details a:hover {
-            color: var(--borgonha-profundo);
-        }
-        
-        .contato-form {
-            background: var(--branco-puro);
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        .contato-item-content p {
+            font-size: 1.1rem;
+            font-weight: 600;
         }
         
         .form-group {
@@ -744,176 +453,114 @@
         
         .form-group label {
             display: block;
-            font-weight: 500;
-            color: var(--borgonha-profundo);
             margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            opacity: 0.9;
         }
         
         .form-group input,
         .form-group textarea {
             width: 100%;
             padding: 1rem;
-            border: 2px solid var(--cinza-claro);
-            border-radius: 10px;
-            font-family: var(--font-body);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--branco);
+            font-family: var(--font-system);
             font-size: 1rem;
-            transition: var(--transition-smooth);
         }
         
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--magenta-vibrante);
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
         }
         
         .form-group textarea {
+            min-height: 120px;
             resize: vertical;
-            min-height: 150px;
         }
         
-        .submit-button {
-            width: 100%;
-            padding: 1.2rem;
-            background: linear-gradient(135deg, var(--borgonha-profundo), var(--magenta-vibrante));
-            color: var(--branco-puro);
+        .btn-enviar {
+            background: var(--magenta-vibrante);
+            color: var(--branco);
             border: none;
-            border-radius: 30px;
-            font-family: var(--font-body);
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
             font-weight: 600;
-            font-size: 1.1rem;
+            border-radius: 8px;
             cursor: pointer;
-            transition: var(--transition-smooth);
-            box-shadow: 0 6px 20px rgba(157, 23, 77, 0.3);
+            transition: all 0.3s;
+            font-family: var(--font-body);
         }
         
-        .submit-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(157, 23, 77, 0.4);
+        .btn-enviar:hover {
+            background: #7F1240;
+            transform: translateY(-2px);
         }
         
-        /* =========================
-           FOOTER
-        ========================= */
-        
+        /* FOOTER */
         .footer {
             background: var(--borgonha-profundo);
-            color: var(--branco-puro);
-            padding: 4rem 2rem 2rem;
+            color: var(--branco);
+            padding: 3rem 2rem 1.5rem;
         }
         
         .footer-container {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 4rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-bottom: 2rem;
         }
         
-        .footer-brand h3 {
+        .footer-col h4 {
+            font-size: 1.2rem;
             font-family: var(--font-display);
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
-        
-        .footer-brand p {
-            opacity: 0.8;
-            line-height: 1.7;
+            font-weight: 600;
             margin-bottom: 1.5rem;
         }
         
-        .footer-links h4 {
-            font-family: var(--font-display);
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .footer-links ul {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-        
-        .footer-links a {
+        .footer-col p,
+        .footer-col a {
+            font-size: 0.9rem;
+            line-height: 1.8;
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
-            transition: var(--transition-smooth);
+            display: block;
+            margin-bottom: 0.5rem;
         }
         
-        .footer-links a:hover {
-            color: var(--branco-puro);
-            padding-left: 5px;
+        .footer-col a:hover {
+            color: var(--dourado-discreto);
         }
         
         .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            padding-top: 2rem;
             text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.85rem;
             opacity: 0.7;
-            font-size: 0.9rem;
         }
         
-        /* =========================
-           RESPONSIVE
-        ========================= */
-        
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .nav-menu {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 80%;
-                height: 100vh;
-                background: var(--branco-puro);
-                flex-direction: column;
-                padding: 6rem 2rem;
-                gap: 2rem;
-                transition: right 0.4s ease;
-                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
-            }
-            
-            .nav-menu.active {
-                right: 0;
-            }
-            
             .hero-container {
                 grid-template-columns: 1fr;
                 gap: 2rem;
-                padding-top: 2rem;
             }
             
             .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.3rem;
-            }
-            
-            .hero-visual {
-                height: 400px;
+                font-size: 2rem;
             }
             
             .hero-stats {
-                position: static;
-                transform: none;
-                width: 100%;
-                margin-top: 2rem;
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
             }
             
-            .hero-image {
-                order: -1;
-            }
-            
-            .section-title {
-                font-size: 2rem;
+            .nav {
+                display: none;
             }
             
             .sobre-content {
@@ -928,75 +575,33 @@
                 grid-template-columns: 1fr;
             }
             
-            .processo-grid::before {
-                display: none;
-            }
-            
             .contato-grid {
                 grid-template-columns: 1fr;
             }
             
             .footer-container {
                 grid-template-columns: 1fr;
-                gap: 2rem;
             }
-            
-            .manifesto h2 {
-                font-size: 2rem;
-            }
-            
-            .manifesto p {
-                font-size: 1.1rem;
-            }
-            
-            .manifesto-highlight {
-                font-size: 1.5rem;
-            }
-        }
-        
-        /* =========================
-           SCROLL ANIMATIONS
-        ========================= */
-        
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-    
     <!-- HEADER -->
-    <header class="header" id="header">
+    <header class="header">
         <div class="header-container">
-            <img src="https://res.cloudinary.com/dlzrfhwin/image/upload/v1775923045/logo_principal_completo_vvzn8v.png" alt="Dra. Carine Petry" class="logo">
-            
-            <nav>
-                <ul class="nav-menu" id="navMenu">
-                    <li><a href="#inicio">Início</a></li>
-                    <li><a href="#sobre">Sobre</a></li>
-                    <li><a href="#areas">Áreas</a></li>
-                    <li><a href="#como-funciona">Como Funciona</a></li>
-                    <li><a href="#contato">Contato</a></li>
-                </ul>
+            <a href="#" class="logo">Dra. Carine Petry</a>
+            <nav class="nav">
+                <a href="#sobre">Sobre</a>
+                <a href="#areas">Áreas de Atuação</a>
+                <a href="#como-funciona">Como Funciona</a>
+                <a href="blog.html">Blog</a>
+                <a href="#contato">Contato</a>
             </nav>
-            
-            <button class="cta-button" onclick="window.location.href='#contato'">Agendar Consulta</button>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
         </div>
     </header>
-    
+
     <!-- HERO -->
-    <section class="hero" id="inicio">
-        <div class="hero-background"></div>
-        <div class="hero-pattern"></div>
-        
+    <section class="hero">
         <div class="hero-container">
             <div class="hero-content">
                 <div class="hero-label">Medicina do Sono • CRM-DF 15342</div>
@@ -1011,28 +616,36 @@
             </div>
             
             <div class="hero-image">
-                <div class="hero-visual">
-                    <div class="hero-stats">
-                        <div class="stat">
-                            <span class="stat-number">25+</span>
-                            <span class="stat-label">Anos de Experiência</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">3</span>
-                            <span class="stat-label">Especializações Raras</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">100%</span>
-                            <span class="stat-label">Rigor Investigativo</span>
-                        </div>
+                <!-- Foto Profissional -->
+                <div class="foto-container">
+                    <img src="https://res.cloudinary.com/dlzrfhwin/image/upload/v1776164492/WhatsApp_Image_2026-03-12_at_12.24.28_ardzoc.jpg" 
+                         alt="Dra. Carine Petry - Médica Especialista em Medicina do Sono"
+                         class="foto-profissional">
+                    <div class="foto-badge">
+                        <span>CRM-DF 15342</span>
+                    </div>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">25+</span>
+                        <span class="stat-label">Anos de Experiência</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">Especializações Raras</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Rigor Investigativo</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <!-- SOBRE -->
-    <section class="section sobre fade-in" id="sobre">
+    <section class="section sobre" id="sobre">
         <div class="section-container">
             <div class="section-header">
                 <div class="section-label">Quem Sou</div>
@@ -1068,126 +681,79 @@
             </div>
         </div>
     </section>
-    
-    <!-- ÁREAS DE ATUAÇÃO -->
-    <section class="section fade-in" id="areas">
+
+    <!-- ÁREAS -->
+    <section class="section" id="areas">
         <div class="section-container">
             <div class="section-header">
                 <div class="section-label">Especialidades</div>
                 <h2 class="section-title">Áreas de Atuação</h2>
-                <p class="section-description">
-                    Condições raras e complexas que exigem investigação profunda, rigor diagnóstico e acompanhamento especializado.
-                </p>
             </div>
             
             <div class="areas-grid">
                 <div class="area-card">
-                    <div class="area-icon">🧬</div>
+                    <div class="area-icon">🔬</div>
                     <h3>SAM</h3>
-                    <p><strong>Síndrome de Ativação Mastocitária</strong></p>
-                    <p>Condição imunológica rara que causa reações sistêmicas imprevisíveis. Investigação detalhada de sintomas múltiplos e aparentemente desconexos.</p>
-                    <ul>
-                        <li>Diagnóstico diferencial rigoroso</li>
-                        <li>Protocolo de investigação laboratorial</li>
-                        <li>Manejo clínico personalizado</li>
-                    </ul>
+                    <p>Síndrome de Ativação Mastocitária — diagnóstico e tratamento de reações imunológicas complexas, alergias inexplicáveis e sintomas multissistêmicos.</p>
                 </div>
                 
                 <div class="area-card">
-                    <div class="area-icon">🦴</div>
+                    <div class="area-icon">🧬</div>
                     <h3>SED</h3>
-                    <p><strong>Síndrome de Ehlers-Danlos</strong></p>
-                    <p>Distúrbio genético do tecido conectivo com manifestações multissistêmicas. Exige avaliação clínica minuciosa e expertise em sinais sutis.</p>
-                    <ul>
-                        <li>Identificação de sinais clínicos raros</li>
-                        <li>Avaliação articular e tegumentar</li>
-                        <li>Plano terapêutico individualizado</li>
-                    </ul>
+                    <p>Síndrome de Ehlers-Danlos — investigação de hipermobilidade articular, fragilidade tissular e dores crônicas de origem genética.</p>
                 </div>
                 
                 <div class="area-card">
-                    <div class="area-icon">🫁</div>
+                    <div class="area-icon">🦠</div>
                     <h3>Covid Longa</h3>
-                    <p><strong>Sequelas Pós-Covid</strong></p>
-                    <p>Síndrome pós-viral complexa com manifestações neurológicas, cardiovasculares, respiratórias e imunológicas. Investigação integrada e multissistêmica.</p>
-                    <ul>
-                        <li>Avaliação de sequelas crônicas</li>
-                        <li>Protocolo de recuperação funcional</li>
-                        <li>Monitoramento evolutivo</li>
-                    </ul>
+                    <p>Sequelas pós-Covid — fadiga crônica, disfunção cognitiva, disautonomia e sintomas persistentes após infecção por SARS-CoV-2.</p>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <!-- COMO FUNCIONA -->
-    <section class="section como-funciona fade-in" id="como-funciona">
+    <section class="section como-funciona" id="como-funciona">
         <div class="section-container">
             <div class="section-header">
                 <div class="section-label">Metodologia</div>
-                <h2 class="section-title">Como Funciona a Consulta</h2>
-                <p class="section-description">
-                    Processo estruturado de investigação clínica que prioriza profundidade, rigor e clareza diagnóstica.
-                </p>
+                <h2 class="section-title">Como Funciona a Investigação</h2>
             </div>
             
             <div class="processo-grid">
                 <div class="processo-step">
                     <div class="step-number">1</div>
                     <h3>Anamnese Profunda</h3>
-                    <p>Escuta atenta de toda história clínica, sintomas e exames anteriores. Tempo necessário para compreender o caso.</p>
+                    <p>Primeira consulta de 90 minutos dedicada exclusivamente à sua história clínica completa.</p>
                 </div>
                 
                 <div class="processo-step">
                     <div class="step-number">2</div>
-                    <h3>Exame Clínico Detalhado</h3>
-                    <p>Avaliação minuciosa de sinais físicos, muitas vezes ignorados em consultas rápidas.</p>
+                    <h3>Investigação</h3>
+                    <p>Exames específicos e protocolos diagnósticos personalizados para seu caso.</p>
                 </div>
                 
                 <div class="processo-step">
                     <div class="step-number">3</div>
-                    <h3>Investigação Laboratorial</h3>
-                    <p>Solicitação estratégica de exames complementares baseados em hipóteses diagnósticas fundamentadas.</p>
+                    <h3>Diagnóstico</h3>
+                    <p>Análise detalhada de resultados e construção do diagnóstico definitivo.</p>
                 </div>
                 
                 <div class="processo-step">
                     <div class="step-number">4</div>
-                    <h3>Plano Terapêutico</h3>
-                    <p>Construção conjunta de estratégia de tratamento personalizada, com acompanhamento próximo.</p>
+                    <h3>Tratamento</h3>
+                    <p>Plano terapêutico individualizado com acompanhamento contínuo.</p>
                 </div>
             </div>
         </div>
     </section>
-    
-    <!-- MANIFESTO -->
-    <section class="manifesto fade-in">
-        <div class="manifesto-content">
-            <h2>Você Não É Frescura</h2>
-            <p>
-                Se você já ouviu que seus sintomas "são só ansiedade", que "está tudo na sua cabeça", ou que "você precisa relaxar" — você está no lugar certo.
-            </p>
-            <p>
-                Seus sintomas são reais. Sua dor é válida. E merece investigação séria.
-            </p>
-            <div class="manifesto-highlight">
-                "Medicina investigativa não é apenas pedir exames.<br>
-                É saber quais perguntas fazer primeiro."
-            </div>
-            <p>
-                Trabalho com casos complexos porque acredito que todo paciente merece clareza diagnóstica — mesmo quando o caminho é difícil.
-            </p>
-        </div>
-    </section>
-    
+
     <!-- CONTATO -->
-    <section class="section contato fade-in" id="contato">
+    <section class="section contato" id="contato">
         <div class="section-container">
             <div class="section-header">
-                <div class="section-label">Contato</div>
-                <h2 class="section-title">Agende Sua Consulta</h2>
-                <p class="section-description">
-                    Atendimento presencial em Brasília-DF e consultas de mentoria profissional.
-                </p>
+                <div class="section-label">Entre em Contato</div>
+                <h2 class="section-title">Agende Sua Avaliação</h2>
             </div>
             
             <div class="contato-grid">
@@ -1195,172 +761,104 @@
                     <h3>Informações de Contato</h3>
                     
                     <div class="contato-item">
-                        <div class="contato-icon">📍</div>
-                        <div class="contato-details">
-                            <h4>Endereço</h4>
-                            <p>
-                                Centro Médico Lucio Costa<br>
-                                Bloco I / T-56<br>
-                                SGAS 610/611 - Via L2 Sul<br>
-                                Brasília-DF, CEP 70200-700
-                            </p>
+                        <div class="contato-item-icon">📍</div>
+                        <div class="contato-item-content">
+                            <h4>Localização</h4>
+                            <p>Brasília, DF</p>
                         </div>
                     </div>
                     
                     <div class="contato-item">
-                        <div class="contato-icon">📞</div>
-                        <div class="contato-details">
-                            <h4>Telefones</h4>
-                            <p>
-                                <a href="tel:+556132637721">(61) 3263-7721</a><br>
-                                <a href="https://wa.me/5561992721947" target="_blank">(61) 99272-1947</a> (WhatsApp)
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="contato-item">
-                        <div class="contato-icon">✉️</div>
-                        <div class="contato-details">
+                        <div class="contato-item-icon">📧</div>
+                        <div class="contato-item-content">
                             <h4>E-mail</h4>
-                            <p>
-                                <a href="/cdn-cgi/l/email-protection#c2a1adacb6a3b6ad82a1a3b0abaca7b2a7b6b0bbeca1adafeca0b0"><span class="__cf_email__" data-cfemail="096a66677d687d66496a687b60676c796c7d7b70276a6664276b7b">[email&#160;protected]</span></a>
-                            </p>
+                            <p>contato@carinepetry.com.br</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contato-item">
+                        <div class="contato-item-icon">📱</div>
+                        <div class="contato-item-content">
+                            <h4>WhatsApp</h4>
+                            <p>(61) 99999-9999</p>
                         </div>
                     </div>
                 </div>
                 
                 <div class="contato-form">
-                    <form id="contactForm">
+                    <form id="formContato">
                         <div class="form-group">
-                            <label for="nome">Nome Completo</label>
-                            <input type="text" id="nome" name="nome" required>
+                            <label>Nome Completo</label>
+                            <input type="text" placeholder="Seu nome" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="email">E-mail</label>
-                            <input type="email" id="email" name="email" required>
+                            <label>E-mail</label>
+                            <input type="email" placeholder="seu@email.com" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="telefone">Telefone</label>
-                            <input type="tel" id="telefone" name="telefone" required>
+                            <label>Mensagem</label>
+                            <textarea placeholder="Descreva brevemente sua situação" required></textarea>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="mensagem">Mensagem</label>
-                            <textarea id="mensagem" name="mensagem" required></textarea>
-                        </div>
-                        
-                        <button type="submit" class="submit-button">Enviar Mensagem</button>
+                        <button type="submit" class="btn-enviar">Enviar Mensagem</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-container">
-            <div class="footer-brand">
-                <h3>Dra. Carine Petry</h3>
-                <p>Investigação Clínica de Alta Complexidade</p>
-                <p>CRM-DF 15342 • RQE 16243/12865</p>
+            <div class="footer-col">
+                <h4>Dra. Carine Petry</h4>
+                <p>Medicina do Sono</p>
+                <p>CRM-DF 15342</p>
+                <p>Especialista em Alta Complexidade</p>
             </div>
             
-            <div class="footer-links">
-                <h4>Links Rápidos</h4>
-                <ul>
-                    <li><a href="#inicio">Início</a></li>
-                    <li><a href="#sobre">Sobre</a></li>
-                    <li><a href="#areas">Áreas</a></li>
-                    <li><a href="#como-funciona">Como Funciona</a></li>
-                    <li><a href="#contato">Contato</a></li>
-                </ul>
+            <div class="footer-col">
+                <h4>Links Úteis</h4>
+                <a href="#sobre">Sobre</a>
+                <a href="#areas">Áreas de Atuação</a>
+                <a href="blog.html">Blog</a>
+                <a href="#contato">Contato</a>
             </div>
             
-            <div class="footer-links">
+            <div class="footer-col">
                 <h4>Especialidades</h4>
-                <ul>
-                    <li>SAM</li>
-                    <li>SED</li>
-                    <li>Covid Longa</li>
-                    <li>Medicina do Sono</li>
-                </ul>
+                <a href="#areas">SAM</a>
+                <a href="#areas">SED</a>
+                <a href="#areas">Covid Longa</a>
+                <a href="#areas">Medicina do Sono</a>
             </div>
         </div>
         
         <div class="footer-bottom">
-            <p>&copy; 2025 Dra. Carine Petry. Todos os direitos reservados.</p>
+            <p>&copy; 2026 Dra. Carine Petry. Todos os direitos reservados.</p>
         </div>
     </footer>
-    
-    <!-- JAVASCRIPT -->
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Header scroll effect
-        window.addEventListener('scroll', function() {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-        
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navMenu = document.getElementById('navMenu');
-        
-        mobileMenuBtn.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-        });
-        
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', function() {
-                navMenu.classList.remove('active');
-            });
-        });
-        
-        // Scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-        
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-        
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-        
-        // Form submission (exemplo - adaptar para backend real)
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = {
-                nome: document.getElementById('nome').value,
-                email: document.getElementById('email').value,
-                telefone: document.getElementById('telefone').value,
-                mensagem: document.getElementById('mensagem').value
-            };
-            
-            // Aqui você integraria com seu backend ou serviço de email
-            console.log('Formulário enviado:', formData);
-            
-            // Feedback visual
-            alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
-            this.reset();
-        });
-        
-        // Smooth scroll for anchor links
+
+    <script>
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
-    
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        
+        // Form submit
+        document.getElementById('formContato').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Mensagem enviada! Entraremos em contato em breve.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

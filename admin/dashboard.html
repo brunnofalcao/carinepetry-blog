@@ -3,584 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Painel Administrativo | Dra. Carine Petry</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <title>Dashboard | Admin</title>
     <style>
-        :root {
-            --borgonha-profundo: #4A1942;
-            --magenta-vibrante: #9D174D;
-            --creme-suave: #FFF9FB;
-            --cinza-escuro: #1F1F1F;
-            --cinza-medio: #6B6B6B;
-            --cinza-claro: #E5E5E5;
-            --branco-puro: #FFFFFF;
-            --verde-sucesso: #10B981;
-            --azul-info: #3B82F6;
-            --amarelo-atencao: #F59E0B;
-            
-            --font-display: 'Cormorant Garamond', serif;
-            --font-body: 'Inter', sans-serif;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: var(--font-body);
-            background: var(--creme-suave);
-            color: var(--cinza-escuro);
+            font-family: 'Inter', sans-serif;
+            background: #f5f5f5;
         }
         
-        .admin-layout {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            min-height: 100vh;
-        }
-        
-        /* SIDEBAR */
         .sidebar {
-            background: linear-gradient(180deg, var(--borgonha-profundo), var(--magenta-vibrante));
-            color: var(--branco-puro);
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: #4A1942;
+            color: white;
             padding: 2rem 0;
-            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
         }
         
         .sidebar-header {
-            padding: 0 2rem 2rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         
-        .sidebar-header img {
-            max-width: 150px;
-            margin-bottom: 1rem;
-            filter: brightness(0) invert(1);
-        }
-        
-        .sidebar-header h2 {
-            font-family: var(--font-display);
-            font-size: 1.3rem;
-            margin-bottom: 0.3rem;
-        }
-        
-        .sidebar-header p {
-            font-size: 0.85rem;
-            opacity: 0.8;
-        }
-        
-        .sidebar-menu {
-            list-style: none;
-            padding: 2rem 0;
-        }
-        
-        .sidebar-menu li {
-            margin-bottom: 0.5rem;
-        }
-        
-        .sidebar-menu a {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem 2rem;
-            color: var(--branco-puro);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            opacity: 0.8;
-        }
-        
-        .sidebar-menu a:hover,
-        .sidebar-menu a.active {
-            background: rgba(255, 255, 255, 0.1);
-            opacity: 1;
-            border-left: 4px solid var(--branco-puro);
-        }
-        
-        .menu-icon {
+        .sidebar-title {
             font-size: 1.5rem;
+            font-weight: 700;
         }
         
-        .sidebar-footer {
-            position: absolute;
-            bottom: 2rem;
-            left: 0;
-            right: 0;
-            padding: 0 2rem;
+        .sidebar-nav {
+            margin-top: 2rem;
         }
         
-        .logout-btn {
-            width: 100%;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 12px;
-            color: var(--branco-puro);
-            font-family: var(--font-body);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        /* MAIN CONTENT */
-        .main-content {
-            padding: 2rem;
-            overflow-y: auto;
-            max-height: 100vh;
-        }
-        
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 2px solid var(--cinza-claro);
-        }
-        
-        .page-title h1 {
-            font-family: var(--font-display);
-            font-size: 2.5rem;
-            color: var(--borgonha-profundo);
-            margin-bottom: 0.3rem;
-        }
-        
-        .page-title p {
-            color: var(--cinza-medio);
-        }
-        
-        .user-info {
+        .sidebar-nav a {
             display: flex;
             align-items: center;
             gap: 1rem;
+            padding: 1rem 1.5rem;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.2s;
         }
         
-        .user-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--borgonha-profundo), var(--magenta-vibrante));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--branco-puro);
-            font-weight: 700;
-            font-size: 1.2rem;
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: rgba(255,255,255,0.1);
+            color: white;
         }
         
-        .user-details {
-            text-align: right;
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
         }
         
-        .user-name {
-            font-weight: 600;
-            color: var(--borgonha-profundo);
+        .header {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
         
-        .user-role {
-            font-size: 0.85rem;
-            color: var(--cinza-medio);
+        .header-title {
+            font-size: 1.8rem;
+            color: #333;
         }
         
-        /* STATS GRID */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
         
         .stat-card {
-            background: var(--branco-puro);
+            background: white;
             padding: 2rem;
-            border-radius: 20px;
-            border: 2px solid var(--cinza-claro);
-            transition: all 0.3s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(74, 25, 66, 0.1);
-            border-color: var(--magenta-vibrante);
-        }
-        
-        .stat-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        
-        .stat-icon {
-            font-size: 2.5rem;
-        }
-        
-        .stat-trend {
-            font-size: 0.85rem;
-            font-weight: 600;
-            padding: 0.3rem 0.8rem;
             border-radius: 12px;
-        }
-        
-        .trend-up {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--verde-sucesso);
-        }
-        
-        .trend-down {
-            background: rgba(239, 68, 68, 0.1);
-            color: #EF4444;
-        }
-        
-        .stat-value {
-            font-family: var(--font-display);
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--magenta-vibrante);
-            margin-bottom: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
         
         .stat-label {
-            color: var(--cinza-medio);
-            font-size: 0.95rem;
-        }
-        
-        /* QUICK ACTIONS */
-        .quick-actions {
-            background: var(--branco-puro);
-            padding: 2rem;
-            border-radius: 20px;
-            border: 2px solid var(--cinza-claro);
-            margin-bottom: 3rem;
-        }
-        
-        .quick-actions h2 {
-            font-family: var(--font-display);
-            font-size: 1.8rem;
-            color: var(--borgonha-profundo);
-            margin-bottom: 1.5rem;
-        }
-        
-        .actions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-        
-        .action-btn {
-            padding: 1.5rem;
-            background: var(--creme-suave);
-            border: 2px solid var(--cinza-claro);
-            border-radius: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: var(--cinza-escuro);
-        }
-        
-        .action-btn:hover {
-            background: linear-gradient(135deg, var(--borgonha-profundo), var(--magenta-vibrante));
-            color: var(--branco-puro);
-            border-color: var(--magenta-vibrante);
-            transform: translateY(-3px);
-        }
-        
-        .action-btn-icon {
-            font-size: 2rem;
-            margin-bottom: 0.8rem;
-        }
-        
-        .action-btn-label {
-            font-weight: 600;
-        }
-        
-        /* RECENT POSTS */
-        .recent-posts {
-            background: var(--branco-puro);
-            padding: 2rem;
-            border-radius: 20px;
-            border: 2px solid var(--cinza-claro);
-        }
-        
-        .recent-posts h2 {
-            font-family: var(--font-display);
-            font-size: 1.8rem;
-            color: var(--borgonha-profundo);
-            margin-bottom: 1.5rem;
-        }
-        
-        .post-item {
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--cinza-claro);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .post-item:last-child {
-            border-bottom: none;
-        }
-        
-        .post-info h3 {
-            color: var(--borgonha-profundo);
+            font-size: 0.9rem;
+            color: #666;
             margin-bottom: 0.5rem;
-            font-size: 1.1rem;
         }
         
-        .post-meta {
-            display: flex;
-            gap: 1.5rem;
-            font-size: 0.85rem;
-            color: var(--cinza-medio);
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #4A1942;
         }
         
-        .post-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-        
-        .icon-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--creme-suave);
+        .btn-primary {
+            background: #9D174D;
+            color: white;
+            padding: 1rem 2rem;
             border: none;
+            border-radius: 8px;
+            font-weight: 600;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
         }
         
-        .icon-btn:hover {
-            background: var(--magenta-vibrante);
-            color: var(--branco-puro);
-        }
-        
-        @media (max-width: 968px) {
-            .admin-layout {
-                grid-template-columns: 1fr;
-            }
-            
-            .sidebar {
-                display: none;
-            }
+        .btn-primary:hover {
+            background: #7F1240;
         }
     </style>
 </head>
 <body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1 class="sidebar-title">Admin</h1>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="active">📊 Dashboard</a>
+            <a href="posts.html">📝 Posts</a>
+            <a href="editor.html">✍️ Novo Post</a>
+            <a href="../index.html">🌐 Ver Site</a>
+            <a href="index.html" onclick="sessionStorage.removeItem('admin_authenticated')">🚪 Sair</a>
+        </nav>
+    </aside>
     
-    <div class="admin-layout">
-        <!-- SIDEBAR -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <img src="https://res.cloudinary.com/dlzrfhwin/image/upload/v1775923046/logo_v4_negativo_tvlmkx.png" alt="Dra. Carine Petry">
-                <h2>Painel Admin</h2>
-                <p>Sistema de Gestão</p>
-            </div>
-            
-            <ul class="sidebar-menu">
-                <li><a href="admin_dashboard.html" class="active"><span class="menu-icon">📊</span> Dashboard</a></li>
-                <li><a href="admin_editor.html"><span class="menu-icon">✍️</span> Novo Post</a></li>
-                <li><a href="admin_posts.html"><span class="menu-icon">📚</span> Todos os Posts</a></li>
-                <li><a href="admin_categories.html"><span class="menu-icon">🏷️</span> Categorias</a></li>
-                <li><a href="admin_analytics.html"><span class="menu-icon">📈</span> Analytics</a></li>
-                <li><a href="admin_settings.html"><span class="menu-icon">⚙️</span> Configurações</a></li>
-            </ul>
-            
-            <div class="sidebar-footer">
-                <button class="logout-btn" onclick="logout()">🚪 Sair do Painel</button>
-            </div>
-        </aside>
+    <main class="main-content">
+        <div class="header">
+            <h2 class="header-title">Dashboard</h2>
+        </div>
         
-        <!-- MAIN CONTENT -->
-        <main class="main-content">
-            <!-- TOP BAR -->
-            <div class="top-bar">
-                <div class="page-title">
-                    <h1>Dashboard</h1>
-                    <p>Visão geral do seu blog</p>
-                </div>
-                
-                <div class="user-info">
-                    <div class="user-details">
-                        <div class="user-name">Dra. Carine Petry</div>
-                        <div class="user-role">Administrador</div>
-                    </div>
-                    <div class="user-avatar">CP</div>
-                </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total de Posts</div>
+                <div class="stat-value" id="totalPosts">0</div>
             </div>
             
-            <!-- STATS GRID -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-header">
-                        <span class="stat-icon">📝</span>
-                        <span class="stat-trend trend-up">↑ 12%</span>
-                    </div>
-                    <div class="stat-value" id="totalPosts">8</div>
-                    <div class="stat-label">Total de Posts</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-header">
-                        <span class="stat-icon">👁️</span>
-                        <span class="stat-trend trend-up">↑ 28%</span>
-                    </div>
-                    <div class="stat-value" id="totalViews">2.847</div>
-                    <div class="stat-label">Visualizações (30d)</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-header">
-                        <span class="stat-icon">✅</span>
-                        <span class="stat-trend trend-up">↑ 5</span>
-                    </div>
-                    <div class="stat-value" id="publishedPosts">6</div>
-                    <div class="stat-label">Posts Publicados</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-header">
-                        <span class="stat-icon">📋</span>
-                        <span class="stat-trend trend-down">↓ 1</span>
-                    </div>
-                    <div class="stat-value" id="draftPosts">2</div>
-                    <div class="stat-label">Rascunhos</div>
-                </div>
+            <div class="stat-card">
+                <div class="stat-label">Posts Publicados</div>
+                <div class="stat-value" id="publishedPosts">0</div>
             </div>
             
-            <!-- QUICK ACTIONS -->
-            <div class="quick-actions">
-                <h2>Ações Rápidas</h2>
-                <div class="actions-grid">
-                    <a href="admin_editor.html" class="action-btn">
-                        <div class="action-btn-icon">✍️</div>
-                        <div class="action-btn-label">Novo Post</div>
-                    </a>
-                    
-                    <a href="admin_editor.html?ai=true" class="action-btn">
-                        <div class="action-btn-icon">🤖</div>
-                        <div class="action-btn-label">Gerar com IA</div>
-                    </a>
-                    
-                    <a href="admin_posts.html" class="action-btn">
-                        <div class="action-btn-icon">📚</div>
-                        <div class="action-btn-label">Ver Todos</div>
-                    </a>
-                    
-                    <a href="admin_analytics.html" class="action-btn">
-                        <div class="action-btn-icon">📊</div>
-                        <div class="action-btn-label">Relatórios</div>
-                    </a>
-                </div>
+            <div class="stat-card">
+                <div class="stat-label">Rascunhos</div>
+                <div class="stat-value" id="draftPosts">0</div>
             </div>
-            
-            <!-- RECENT POSTS -->
-            <div class="recent-posts">
-                <h2>Posts Recentes</h2>
-                
-                <div class="post-item">
-                    <div class="post-info">
-                        <h3>SAM: Protocolo Diagnóstico para Casos Complexos</h3>
-                        <div class="post-meta">
-                            <span>📅 12 Abr 2026</span>
-                            <span>👁️ 847 views</span>
-                            <span>✅ Publicado</span>
-                        </div>
-                    </div>
-                    <div class="post-actions">
-                        <button class="icon-btn" title="Editar">✏️</button>
-                        <button class="icon-btn" title="Visualizar">👁️</button>
-                        <button class="icon-btn" title="Excluir">🗑️</button>
-                    </div>
-                </div>
-                
-                <div class="post-item">
-                    <div class="post-info">
-                        <h3>SED Hipermóvel: Por Que o Diagnóstico Demora Tanto?</h3>
-                        <div class="post-meta">
-                            <span>📅 10 Abr 2026</span>
-                            <span>👁️ 652 views</span>
-                            <span>✅ Publicado</span>
-                        </div>
-                    </div>
-                    <div class="post-actions">
-                        <button class="icon-btn" title="Editar">✏️</button>
-                        <button class="icon-btn" title="Visualizar">👁️</button>
-                        <button class="icon-btn" title="Excluir">🗑️</button>
-                    </div>
-                </div>
-                
-                <div class="post-item">
-                    <div class="post-info">
-                        <h3>Fadiga Pós-Covid: Não É "Só Cansaço"</h3>
-                        <div class="post-meta">
-                            <span>📅 8 Abr 2026</span>
-                            <span>👁️ 1.234 views</span>
-                            <span>✅ Publicado</span>
-                        </div>
-                    </div>
-                    <div class="post-actions">
-                        <button class="icon-btn" title="Editar">✏️</button>
-                        <button class="icon-btn" title="Visualizar">👁️</button>
-                        <button class="icon-btn" title="Excluir">🗑️</button>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-    
+        </div>
+        
+        <div style="text-align: center; padding: 3rem;">
+            <a href="editor.html" class="btn-primary">+ Criar Novo Post</a>
+        </div>
+    </main>
+
     <script>
         // Verificar autenticação
-        function checkAuth() {
-            if (localStorage.getItem('isAuthenticated') !== 'true') {
-                alert('Sessão expirada. Faça login novamente.');
-                window.location.href = 'admin_login.html';
-                return false;
-            }
-            return true;
+        if (!sessionStorage.getItem('admin_authenticated')) {
+            window.location.href = 'index.html';
         }
         
-        // Executar verificação
-        checkAuth();
-        
-        // Função de logout
-        function logout() {
-            if (confirm('Deseja realmente sair do painel?')) {
-                localStorage.removeItem('isAuthenticated');
-                localStorage.removeItem('loginTime');
-                window.location.href = 'admin_login.html';
-            }
-        }
-        
-        // Carregar estatísticas reais (se houver posts salvos)
+        // Carregar estatísticas
         function loadStats() {
-            const posts = JSON.parse(localStorage.getItem('blogPosts') || '[]');
+            const posts = JSON.parse(localStorage.getItem('blog_posts') || '[]');
             
-            if (posts.length > 0) {
-                const published = posts.filter(p => p.status === 'published').length;
-                const drafts = posts.filter(p => p.status === 'draft').length;
-                const totalViews = posts.reduce((sum, p) => sum + (p.views || 0), 0);
-                
-                document.getElementById('totalPosts').textContent = posts.length;
-                document.getElementById('publishedPosts').textContent = published;
-                document.getElementById('draftPosts').textContent = drafts;
-                document.getElementById('totalViews').textContent = totalViews.toLocaleString();
-            }
+            document.getElementById('totalPosts').textContent = posts.length;
+            document.getElementById('publishedPosts').textContent = posts.filter(p => p.status === 'publicado').length;
+            document.getElementById('draftPosts').textContent = posts.filter(p => p.status === 'rascunho').length;
         }
         
         loadStats();
     </script>
-    
 </body>
 </html>

@@ -1,36 +1,28 @@
 {
-  "version": 2,
-  "routes": [
-    {
-      "src": "/admin$",
-      "dest": "/admin/index.html"
-    },
-    {
-      "src": "/admin/(.+)",
-      "dest": "/admin/$1"
-    },
-    {
-      "src": "/blog$",
-      "dest": "/blog.html"
-    },
-    {
-      "src": "/brandbook$",
-      "dest": "/brandbook.html"
-    },
-    {
-      "src": "/(.*)",
-      "headers": {
-        "X-Content-Type-Options": "nosniff",
-        "X-Frame-Options": "DENY",
-        "X-XSS-Protection": "1; mode=block",
-        "Referrer-Policy": "strict-origin-when-cross-origin"
-      },
-      "continue": true
-    }
-  ],
   "rewrites": [
-    { "source": "/admin", "destination": "/admin/index.html" },
-    { "source": "/blog", "destination": "/blog.html" },
-    { "source": "/brandbook", "destination": "/brandbook.html" }
+    {
+      "source": "/admin",
+      "destination": "/admin/index.html"
+    },
+    {
+      "source": "/admin/dashboard",
+      "destination": "/admin/dashboard.html"
+    },
+    {
+      "source": "/admin/posts",
+      "destination": "/admin/posts.html"
+    },
+    {
+      "source": "/admin/editor",
+      "destination": "/admin/editor.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog.html"
+    },
+    {
+      "source": "/artigo",
+      "destination": "/artigo.html"
+    }
   ]
 }

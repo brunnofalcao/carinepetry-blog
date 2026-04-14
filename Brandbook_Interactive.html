@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brandbook - Dra. Carine Petry</title>
+    <style>
+        /* Importação de fontes */
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        /* Reset e base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            /* Cores da marca */
+            --borgonha-profundo: #4A1942;
+            --magenta-vibrante: #9D174D;
+            --creme-luminoso: #FFF9FB;
+            --borgonha-dark: #2D0F28;
+            --magenta-dark: #7D1450;
+            --cinza-escuro: #4A4A4A;
+            --cinza-medio: #9E9E9E;
+            --cinza-claro: #E5E5E5;
+            
+            /* Tipografia */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            color: var(--cinza-escuro);
+            background: var(--creme-luminoso);
+        }
+        
+        /* Container principal */
+        .brandbook-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Navegação lateral */
+        .sidebar {
+            width: 280px;
+            background: var(--borgonha-profundo);
+            color: white;
+            padding: 2rem 1.5rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        
+        .sidebar-logo {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .sidebar-logo h1 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-logo p {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+        
+        .sidebar-nav ul {
+            list-style: none;
+        }
+        
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-nav a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        /* Conteúdo principal */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+        }
+        
+        /* Tipografia de conteúdo */
+        h1 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--borgonha-profundo);
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+        }
+        
+        h2 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--borgonha-profundo);
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+        }
+        
+        h3 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--borgonha-profundo);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        h4 {
+            font-family: var(--font-body);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--borgonha-profundo);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+        
+        /* Seções */
+        section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 2rem;
+        }
+        
+        .section-header {
+            background: linear-gradient(135deg, var(--borgonha-profundo), var(--magenta-dark));
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .section-header h2 {
+            color: white;
+            margin: 0;
+        }
+        
+        .section-header p {
+            opacity: 0.9;
+            margin: 0.5rem 0 0 0;
+        }
+        
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(74, 25, 66, 0.08);
+        }
+        
+        .card-highlight {
+            border-left: 4px solid var(--magenta-vibrante);
+        }
+        
+        /* Placeholder de imagens */
+        .image-placeholder {
+            background: var(--cinza-claro);
+            border: 2px dashed var(--borgonha-profundo);
+            border-radius: 8px;
+            padding: 3rem 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .image-placeholder .icon {
+            font-size: 3rem;
+            color: var(--borgonha-profundo);
+            margin-bottom: 1rem;
+        }
+        
+        .image-placeholder h4 {
+            color: var(--borgonha-profundo);
+            margin: 0 0 0.5rem 0;
+        }
+        
+        .image-placeholder p {
+            color: var(--cinza-medio);
+            font-size: 0.9rem;
+            margin: 0.25rem 0;
+        }
+        
+        .image-placeholder .specs {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--cinza-medio);
+            font-size: 0.85rem;
+            color: var(--cinza-escuro);
+        }
+        
+        /* Tabelas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        thead {
+            background: var(--borgonha-profundo);
+            color: white;
+        }
+        
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--cinza-claro);
+        }
+        
+        tbody tr:hover {
+            background: rgba(74, 25, 66, 0.03);
+        }
+        
+        /* Cores showcase */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .color-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .color-sample {
+            height: 120px;
+        }
+        
+        .color-info {
+            padding: 1rem;
+        }
+        
+        .color-info h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+        }
+        
+        .color-info p {
+            font-size: 0.85rem;
+            margin: 0.25rem 0;
+            color: var(--cinza-medio);
+        }
+        
+        /* Badges e tags */
+        .badge {
+            display: inline-block;
+            background: var(--magenta-vibrante);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+        }
+        
+        .badge.secondary {
+            background: var(--borgonha-profundo);
+        }
+        
+        /* Listas */
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Code blocks */
+        pre, code {
+            font-family: 'Courier New', monospace;
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+        
+        pre {
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        code {
+            padding: 0.2rem 0.4rem;
+            font-size: 0.9em;
+        }
+        
+        /* Botões de ação */
+        .btn-download {
+            display: inline-block;
+            background: var(--magenta-vibrante);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .btn-download:hover {
+            background: var(--magenta-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(157, 23, 77, 0.3);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 2rem 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .color-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Scroll suave */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Destaque de seção ativa */
+        section:target {
+            animation: highlight 1s ease;
+        }
+        
+        @keyframes highlight {
+            0% {
+                background: rgba(157, 23, 77, 0.1);
+            }
+            100% {
+                background: transparent;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="brandbook-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-logo">
+                <h1>BRANDBOOK</h1>
+                <p>Dra. Carine Petry v2.0</p>
+            </div>
+            
+            <div class="sidebar-nav">
+                <ul>
+                    <li><a href="#essencia">1. Essência da Marca</a></li>
+                    <li><a href="#arquetipal">2. Identidade Arquetipal</a></li>
+                    <li><a href="#disc">3. Perfil Comportamental</a></li>
+                    <li><a href="#posicionamento">4. Posicionamento</a></li>
+                    <li><a href="#visual">5. Identidade Visual</a></li>
+                    <li><a href="#cores">6. Sistema de Cores</a></li>
+                    <li><a href="#tipografia">7. Tipografia</a></li>
+                    <li><a href="#tom">8. Tom de Voz</a></li>
+                    <li><a href="#vocabulario">9. Vocabulário de Marca</a></li>
+                    <li><a href="#aplicacoes">10. Aplicações Práticas</a></li>
+                    <li><a href="#manual">11. Manual de Uso do Logo</a></li>
+                </ul>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header>
+                <h1>BRANDBOOK OFICIAL</h1>
+                <p style="font-size: 1.2rem; color: var(--magenta-vibrante); font-family: var(--font-display);">
+                    Dra. Carine Petry · Investigação Clínica de Alta Complexidade
+                </p>
+                <p style="color: var(--cinza-medio); font-size: 0.9rem;">
+                    Versão 2.0 · Abril 2026 · Documento Confidencial
+                </p>
+            </header>
+            
+            <!-- Seção 1: Essência da Marca -->
+            <section id="essencia">
+                <div class="section-header">
+                    <h2>1. ESSÊNCIA DA MARCA</h2>
+                    <p>Fundamentos estratégicos que definem a identidade da Dra. Carine Petry</p>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>PROPÓSITO</h3>
+                    <p>Elevar o padrão da medicina investigativa através da combinação de <strong>rigor técnico</strong>, <strong>investigação profunda</strong> e <strong>orientação humanizada</strong>, oferecendo diagnósticos e direcionamentos para casos complexos que outros médicos não conseguiram resolver.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>VISÃO</h3>
+                    <p>Ser referência nacional em investigação clínica de alta complexidade, reconhecida pela excelência técnica em condições raras e subdiagnosticadas (SAM, SED, Covid Longa), pelo posicionamento ético inabalável e pela capacidade de traduzir complexidade médica em orientação clara.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>MISSÃO</h3>
+                    <p>Oferecer investigação clínica aprofundada para casos complexos, com especialização em Síndrome de Ativação de Mastócitos (SAM), Síndrome de Ehlers-Danlos (SED) e sequelas de Covid Longa, combinando expertise técnica, princípios éticos rigorosos e comunicação acessível sem simplificação.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>VALORES FUNDAMENTAIS</h3>
+                    <ul>
+                        <li><strong>Investigação Profunda:</strong> Consultas longas, anamnese detalhada, correlação de sintomas. Profundidade antes de resposta rápida.</li>
+                        <li><strong>Rigor Técnico:</strong> Diagnósticos baseados em evidência científica sólida e atualização contínua em condições raras.</li>
+                        <li><strong>Princípios Inegociáveis:</strong> Ética médica e transparência acima de conveniências.</li>
+                        <li><strong>Liderança com Empatia:</strong> Autoridade clínica com acolhimento genuíno.</li>
+                        <li><strong>Clareza sem Simplificação:</strong> Tradução precisa de complexidade técnica.</li>
+                        <li><strong>Orientação de Trajetória:</strong> Direcionar quando necessário — saber quando encaminhar é parte da expertise.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Seção 2: Identidade Arquetipal -->
+            <section id="arquetipal">
+                <div class="section-header">
+                    <h2>2. IDENTIDADE ARQUETIPAL</h2>
+                    <p>Análise B.AKKA dos arquétipos que moldam a personalidade da marca</p>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>PRIMÁRIO: REGENTE (29%)</h3>
+                    <p><span class="badge">Liderança</span><span class="badge">Estratégia</span><span class="badge">Autoridade</span></p>
+                    <p><strong>Manifestação:</strong> Posicionamento como autoridade clínica em condições complexas. Capacidade de orientar trajetórias investigativas. Organização, método e confiança para decisões difíceis.</p>
+                    <p><em>"Eu investigo. Eu oriento. Eu assumo a responsabilidade de buscar a causa raiz."</em></p>
+                </div>
+                
+                <div class="card">
+                    <h3>SECUNDÁRIO: IDEALISTA (17%)</h3>
+                    <p><span class="badge secondary">Princípios</span><span class="badge secondary">Visão</span><span class="badge secondary">Perfeccionismo</span></p>
+                    <p><strong>Manifestação:</strong> Padrões éticos inquebráveis. Busca por diagnósticos corretos (nunca convenientes). Perfeccionismo investigativo.</p>
+                    <p><em>"Não faço concessões quando o assunto é diagnóstico. Existe um jeito certo de investigar."</em></p>
+                </div>
+                
+                <div class="card">
+                    <h3>TERCIÁRIO: ALTRUÍSTA (15%)</h3>
+                    <p><span class="badge secondary">Empatia</span><span class="badge secondary">Cuidado</span><span class="badge secondary">Serviço</span></p>
+                    <p><strong>Manifestação:</strong> Acolhimento a pacientes descredibilizados. Escuta ativa. Medicina centrada em pessoas com trajetórias difíceis.</p>
+                    <p><em>"Você não é 'frescura'. Você não é 'ansiedade'. Você merece investigação real."</em></p>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>TENSÃO CRIATIVA</h3>
+                    <p style="font-family: var(--font-display); font-size: 1.3rem; color: var(--magenta-vibrante);">
+                        "Liderança sem abandonar princípios"
+                    </p>
+                    <p>A marca existe na interseção entre autoridade investigativa, perfeccionismo diagnóstico e empatia com pacientes difíceis.</p>
+                </div>
+            </section>
+            
+            <!-- Seção 3: Perfil DISC -->
+            <section id="disc">
+                <div class="section-header">
+                    <h2>3. PERFIL COMPORTAMENTAL</h2>
+                    <p>Análise DISC - Perfil DI dominante</p>
+                </div>
+                
+                <div class="card">
+                    <h3>GRÁFICO NATURAL</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Dimensão</th>
+                                <th>Score</th>
+                                <th>Nível</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>D (Dominância)</strong></td>
+                                <td>76</td>
+                                <td>ALTO</td>
+                            </tr>
+                            <tr>
+                                <td><strong>I (Influência)</strong></td>
+                                <td>57</td>
+                                <td>MÉDIO-ALTO</td>
+                            </tr>
+                            <tr>
+                                <td><strong>S (Estabilidade)</strong></td>
+                                <td>46</td>
+                                <td>MÉDIO</td>
+                            </tr>
+                            <tr>
+                                <td><strong>C (Conformidade)</strong></td>
+                                <td>21</td>
+                                <td>BAIXO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>IMPLICAÇÕES PARA A COMUNICAÇÃO</h3>
+                    <ul>
+                        <li><strong>Tom assertivo</strong> (especialmente ao validar sintomas reais)</li>
+                        <li><strong>Mensagens diretas</strong> (sem rodeios sobre necessidade de investigação)</li>
+                        <li><strong>Posicionamento forte</strong> (opiniões claras sobre SAM/SED/Covid Longa)</li>
+                        <li><strong>Energia</strong> (presença vibrante, não apática)</li>
+                        <li><strong>Confiança técnica</strong> (segurança em áreas de expertise)</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Seção 4: Posicionamento -->
+            <section id="posicionamento">
+                <div class="section-header">
+                    <h2>4. POSICIONAMENTO ESTRATÉGICO</h2>
+                    <p>Definição clara de território e diferenciação competitiva</p>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>DADOS OFICIAIS</h3>
+                    <p><strong>Nome:</strong> Dra. Carine Petry</p>
+                    <p><strong>CRM:</strong> CRM-DF 15342</p>
+                    <p><strong>RQE:</strong> 16243 / 12865</p>
+                    <p><strong>Especialidade Oficial:</strong> Medicina do Sono</p>
+                    <p><strong>Áreas de Expertise Atual:</strong> SAM · SED · Covid Longa</p>
+                    <p><strong>Abordagem:</strong> Investigação Clínica de Alta Complexidade</p>
+                </div>
+                
+                <div class="card">
+                    <h3>TAGLINE PRINCIPAL</h3>
+                    <p style="font-family: var(--font-display); font-size: 1.8rem; color: var(--borgonha-profundo); text-align: center; padding: 1rem 0;">
+                        "Investigação Clínica para Casos que Outros Médicos Não Resolveram"
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <h3>TAGLINES COMPLEMENTARES</h3>
+                    <ul>
+                        <li><strong>Técnica/Científica:</strong> "Profundidade antes de resposta"</li>
+                        <li><strong>Emocional/Pacientes:</strong> "Quando o diagnóstico exige mais do que 15 minutos"</li>
+                        <li><strong>Institucional:</strong> "Referência nacional em SAM, SED e Covid Longa"</li>
+                    </ul>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>DIFERENCIAÇÃO COMPETITIVA</h3>
+                    <ol>
+                        <li>Especialização rara em SAM/SED/Covid Longa (poucos médicos dominam)</li>
+                        <li>Abordagem investigativa vs "tratamentista" (busca causa raiz)</li>
+                        <li>Consultas longas (1h+ vs 15min padrão)</li>
+                        <li>Disposição para dizer "não é minha área, mas sei quem pode ajudar"</li>
+                        <li>Validação de sintomas reais vs descredibilização</li>
+                    </ol>
+                </div>
+            </section>
+            
+            <!-- Seção 5: Identidade Visual -->
+            <section id="visual">
+                <div class="section-header">
+                    <h2>5. IDENTIDADE VISUAL</h2>
+                    <p>Sistema de marca centrado no monograma CP</p>
+                </div>
+                
+                <div class="image-placeholder">
+                    <div class="icon">🎨</div>
+                    <h4>LOGO PRINCIPAL COMPLETO</h4>
+                    <p><strong>Arquivo:</strong> logo_principal_completo.png / .svg / .pdf</p>
+                    <p><strong>Dimensões:</strong> Alta resolução (mínimo 3000px largura)</p>
+                    <div class="specs">
+                        <strong>Formatos necessários:</strong><br>
+                        • SVG vetorial editável<br>
+                        • PNG transparente (3000px, 2000px, 1000px, 500px)<br>
+                        • PDF vetorial para impressão<br>
+                        • JPG com fundo branco (usos específicos)
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>CONCEITO ESTRATÉGICO</h3>
+                    <p>O monograma CP é uma <strong>declaração visual de exclusividade e precisão investigativa</strong>. Comunica:</p>
+                    <ul>
+                        <li><strong>Personalização</strong> - Medicina centrada na individualidade</li>
+                        <li><strong>Memorabilidade</strong> - Forma distintiva facilmente reconhecível</li>
+                        <li><strong>Precisão Geométrica</strong> - Reflexo da meticulosidade investigativa</li>
+                        <li><strong>Atemporalidade</strong> - Design que permanece relevante</li>
+                        <li><strong>Diferenciação</strong> - Foge de clichês médicos</li>
+                    </ul>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>METÁFORA VISUAL</h3>
+                    <p style="font-family: var(--font-display); font-size: 1.3rem; color: var(--magenta-vibrante);">
+                        "Selo de Investigação Profunda"
+                    </p>
+                    <p>O monograma funciona como certificado visual de rigor investigativo. Não é apenas identificação — é validação de padrão elevado.</p>
+                </div>
+            </section>
+            
+            <!-- Seção 6: Sistema de Cores -->
+            <section id="cores">
+                <div class="section-header">
+                    <h2>6. SISTEMA DE CORES</h2>
+                    <p>Paleta Borgonha & Creme - Quiet Luxury</p>
+                </div>
+                
+                <div class="color-grid">
+                    <div class="color-card">
+                        <div class="color-sample" style="background: #4A1942;"></div>
+                        <div class="color-info">
+                            <h4>Borgonha Profundo</h4>
+                            <p><strong>HEX:</strong> #4A1942</p>
+                            <p><strong>RGB:</strong> 74, 25, 66</p>
+                            <p><strong>CMYK:</strong> 0, 66, 11, 71</p>
+                            <p><strong>USO:</strong> Monograma C, títulos, autoridade</p>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-sample" style="background: #9D174D;"></div>
+                        <div class="color-info">
+                            <h4>Magenta Vibrante</h4>
+                            <p><strong>HEX:</strong> #9D174D</p>
+                            <p><strong>RGB:</strong> 157, 23, 77</p>
+                            <p><strong>CMYK:</strong> 0, 85, 51, 38</p>
+                            <p><strong>USO:</strong> Monograma P, destaques, CTAs</p>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-sample" style="background: #FFF9FB;"></div>
+                        <div class="color-info">
+                            <h4>Creme Luminoso</h4>
+                            <p><strong>HEX:</strong> #FFF9FB</p>
+                            <p><strong>RGB:</strong> 255, 249, 251</p>
+                            <p><strong>CMYK:</strong> 0, 2, 2, 0</p>
+                            <p><strong>USO:</strong> Fundos principais, respiro</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-placeholder">
+                    <div class="icon">🎨</div>
+                    <h4>PALETA EXPANDIDA COMPLETA</h4>
+                    <p><strong>Arquivo:</strong> paleta_cores_expandida.png</p>
+                    <p><strong>Conteúdo:</strong> Escalas de Borgonha, Magenta e Neutros</p>
+                </div>
+            </section>
+            
+            <!-- Seção 7: Tipografia -->
+            <section id="tipografia">
+                <div class="section-header">
+                    <h2>7. TIPOGRAFIA</h2>
+                    <p>Sistema dual: Cormorant Garamond (Display) + Inter (Body)</p>
+                </div>
+                
+                <div class="card">
+                    <h3 style="font-family: var(--font-display); font-size: 2.5rem; letter-spacing: 3px;">
+                        Cormorant Garamond
+                    </h3>
+                    <p><strong>Uso:</strong> Logotipo, títulos principais, materiais premium</p>
+                    <p><strong>Características:</strong> Serifa clássica moderna, autoridade, permanência</p>
+                    <p><strong>Pesos:</strong> Light (300), Regular (400), Medium (500), SemiBold (600)</p>
+                </div>
+                
+                <div class="card">
+                    <h3 style="font-family: var(--font-body); font-weight: 600;">
+                        Inter
+                    </h3>
+                    <p><strong>Uso:</strong> Textos corpo, navegação, interface, materiais digitais</p>
+                    <p><strong>Características:</strong> Sans humanista, legibilidade, neutralidade calorosa</p>
+                    <p><strong>Pesos:</strong> Light (300), Regular (400), Medium (500), SemiBold (600), Bold (700)</p>
+                </div>
+                
+                <div class="image-placeholder">
+                    <div class="icon">📐</div>
+                    <h4>HIERARQUIA TIPOGRÁFICA COMPLETA</h4>
+                    <p><strong>Arquivo:</strong> hierarquia_tipografica_completa.png</p>
+                    <p><strong>Conteúdo:</strong> H1, H2, H3, H4, Body, Caption em Desktop/Mobile/Print</p>
+                </div>
+            </section>
+            
+            <!-- Seção 8: Tom de Voz -->
+            <section id="tom">
+                <div class="section-header">
+                    <h2>8. TOM DE VOZ</h2>
+                    <p>Autoridade investigativa com empatia validadora</p>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>PERSONALIDADE VOCAL</h3>
+                    <ul>
+                        <li><strong>Autoridade Investigativa sem Frieza</strong> - Expertise técnica sem jargão como barreira</li>
+                        <li><strong>Validação Empática</strong> - "Você não é frescura"</li>
+                        <li><strong>Diretividade com Acolhimento</strong> - Clara sobre necessidade de investigação</li>
+                        <li><strong>Princípios Inegociáveis</strong> - Não diagnostica sem investigar</li>
+                        <li><strong>Orientação de Trajetória</strong> - "Não sei, mas sei quem sabe"</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>PALAVRAS PROIBIDAS (CFM 2.336/2023)</h3>
+                    <p style="color: var(--magenta-vibrante);"><strong>NUNCA USAR:</strong></p>
+                    <ul>
+                        <li>Revolucionário</li>
+                        <li>Resultados garantidos / Cura (para condições crônicas)</li>
+                        <li>Transformação total</li>
+                        <li>Único no mercado / Exclusivo</li>
+                        <li>Milagre</li>
+                        <li>Simples / Fácil / Rápido (para diagnósticos complexos)</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>VOCABULÁRIO DE IMPACTO</h3>
+                    <p style="color: var(--borgonha-profundo);"><strong>USAR FREQUENTEMENTE:</strong></p>
+                    <p>Investigação · Profundidade · Rigor investigativo · Clareza diagnóstica · Evidência · Metodologia · Correlação clínica · Orientação de trajetória · Validação · Direcionamento · Condições raras · Subdiagnosticadas · Anamnese detalhada · Causa raiz · Multissistêmico</p>
+                </div>
+            </section>
+            
+            <!-- Seção 9: Vocabulário de Marca -->
+            <section id="vocabulario">
+                <div class="section-header">
+                    <h2>9. VOCABULÁRIO DE MARCA</h2>
+                    <p>Manifestos e assinaturas de comunicação</p>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>MANIFESTO 1: RACIONAL</h3>
+                    <p style="font-family: var(--font-display); font-size: 1.1rem; line-height: 1.8;">
+                        Medicina investigativa não é apenas pedir exames.<br>
+                        É correlacionar sintomas aparentemente desconexos.<br>
+                        É reconhecer padrões que outros não veem.<br>
+                        É ter coragem para considerar diagnósticos raros.<br><br>
+                        
+                        SAM. SED. Covid Longa.<br>
+                        Condições que 99% dos médicos não investigam.<br><br>
+                        
+                        Investigação real exige:<br>
+                        Tempo. Método. Conhecimento técnico.<br>
+                        E disposição para dizer "não sei, mas sei quem sabe".
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <h3>MANIFESTO 2: EMOCIONAL</h3>
+                    <p style="font-family: var(--font-display); font-size: 1.1rem; line-height: 1.8; color: var(--magenta-vibrante);">
+                        VOCÊ NÃO É "FRESCURA"
+                    </p>
+                    <p style="line-height: 1.8;">
+                        Quantos médicos você já consultou?<br>
+                        Quantas vezes ouviu "seus exames estão normais"?<br>
+                        Quantas vezes saiu sentindo que não foi levado a sério?<br><br>
+                        
+                        Seus sintomas são reais.<br>
+                        Não é ansiedade. Não é "coisa da sua cabeça".<br><br>
+                        
+                        Aqui, você será ouvido.<br>
+                        E sairá com direcionamento claro.
+                    </p>
+                </div>
+            </section>
+            
+            <!-- Seção 10: Aplicações Práticas -->
+            <section id="aplicacoes">
+                <div class="section-header">
+                    <h2>10. APLICAÇÕES PRÁTICAS</h2>
+                    <p>Mockups e diretrizes de uso em diferentes mídias</p>
+                </div>
+                
+                <h3>PAPELARIA INSTITUCIONAL</h3>
+                
+                <div class="image-placeholder">
+                    <div class="icon">💼</div>
+                    <h4>CARTÃO DE VISITAS</h4>
+                    <p><strong>Arquivos:</strong> aplicacao_cartao_visitas_frente.png + verso.png</p>
+                    <p><strong>Especificações:</strong> 9cm x 5cm · Supremo 300g · Laminação fosca</p>
+                </div>
+                
+                <div class="image-placeholder">
+                    <div class="icon">📋</div>
+                    <h4>RECEITUÁRIO MÉDICO</h4>
+                    <p><strong>Arquivo:</strong> aplicacao_receituario.png</p>
+                    <p><strong>Especificações:</strong> A4 · Offset 90g · Impressão P&B</p>
+                </div>
+                
+                <h3 style="margin-top: 3rem;">MATERIAIS DIGITAIS</h3>
+                
+                <div class="image-placeholder">
+                    <div class="icon">💻</div>
+                    <h4>SITE INSTITUCIONAL</h4>
+                    <p><strong>Arquivos:</strong> aplicacao_site_home.png + sobre.png + mobile.png</p>
+                    <p><strong>Paleta:</strong> Creme/Branco alternados, Títulos Borgonha, CTAs Magenta</p>
+                </div>
+                
+                <div class="image-placeholder">
+                    <div class="icon">📱</div>
+                    <h4>INSTAGRAM FEED & STORIES</h4>
+                    <p><strong>Arquivo:</strong> aplicacao_instagram_feed_grid.png (grid 3x3)</p>
+                    <p><strong>Templates Stories:</strong> 5 modelos para diferentes propósitos</p>
+                </div>
+            </section>
+            
+            <!-- Seção 11: Manual de Uso -->
+            <section id="manual">
+                <div class="section-header">
+                    <h2>11. MANUAL DE USO DO LOGO</h2>
+                    <p>Diretrizes técnicas e regras de aplicação</p>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>VERSÕES OFICIAIS</h3>
+                    <ol>
+                        <li><strong>Principal (Colorida)</strong> - Borgonha + Magenta sobre fundos claros</li>
+                        <li><strong>Institucional (P&B)</strong> - Preto sólido para receituário e documentos</li>
+                        <li><strong>Compacta (Ícone)</strong> - Só monograma CP para favicon e apps</li>
+                        <li><strong>Negativa (Fundo Escuro)</strong> - Branco/Creme sobre fundos escuros</li>
+                    </ol>
+                </div>
+                
+                <div class="image-placeholder">
+                    <div class="icon">📏</div>
+                    <h4>ÁREA DE PROTEÇÃO E ESPAÇAMENTO</h4>
+                    <p><strong>Arquivo:</strong> manual_logo_area_protecao.png</p>
+                    <p><strong>Regra:</strong> Margem mínima = Altura da letra "C" do monograma</p>
+                </div>
+                
+                <div class="card">
+                    <h3>TAMANHOS MÍNIMOS</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Contexto</th>
+                                <th>Versão Completa</th>
+                                <th>Versão Compacta</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Digital (Web/Apps)</td>
+                                <td>180px largura</td>
+                                <td>48px x 48px</td>
+                            </tr>
+                            <tr>
+                                <td>Impresso (Papel)</td>
+                                <td>4cm largura</td>
+                                <td>1cm x 1cm</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="image-placeholder">
+                    <div class="icon">✅</div>
+                    <h4>USOS CORRETOS</h4>
+                    <p><strong>Arquivo:</strong> manual_logo_usos_corretos.png</p>
+                    <p><strong>Conteúdo:</strong> Grid 3x3 mostrando aplicações aprovadas</p>
+                </div>
+                
+                <div class="image-placeholder">
+                    <div class="icon">❌</div>
+                    <h4>USOS INCORRETOS</h4>
+                    <p><strong>Arquivo:</strong> manual_logo_usos_incorretos.png</p>
+                    <p><strong>Conteúdo:</strong> Grid 3x3 mostrando o que NUNCA fazer</p>
+                </div>
+            </section>
+            
+            <!-- Footer -->
+            <footer style="margin-top: 5rem; padding-top: 2rem; border-top: 2px solid var(--cinza-claro);">
+                <p style="text-align: center; color: var(--cinza-medio); font-size: 0.9rem;">
+                    <strong>BRANDBOOK OFICIAL - DRA. CARINE PETRY</strong><br>
+                    Versão 2.0 · Abril 2026 · Documento Confidencial<br>
+                    Investigação Clínica de Alta Complexidade<br>
+                    <em style="font-family: var(--font-display);">Profundidade antes de resposta.</em>
+                </p>
+                
+                <a href="#" class="btn-download" style="display: block; text-align: center; margin: 2rem auto; max-width: 300px;">
+                    📥 BAIXAR BRANDBOOK COMPLETO
+                </a>
+            </footer>
+        </main>
+    </div>
+    
+    <script>
+        // Navegação ativa
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.sidebar-nav a');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

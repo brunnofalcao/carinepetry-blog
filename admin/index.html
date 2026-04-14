@@ -3,27 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Painel Administrativo | Dra. Carine Petry</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <title>Admin | Dra. Carine Petry</title>
     <style>
-        :root {
-            --borgonha-profundo: #4A1942;
-            --magenta-vibrante: #9D174D;
-            --creme-suave: #FFF9FB;
-            --cinza-escuro: #1F1F1F;
-            --cinza-medio: #6B6B6B;
-            --cinza-claro: #E5E5E5;
-            --branco-puro: #FFFFFF;
-            --verde-sucesso: #10B981;
-            --vermelho-erro: #EF4444;
-            
-            --font-display: 'Cormorant Garamond', serif;
-            --font-body: 'Inter', sans-serif;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;500;600&display=swap');
         
         * {
             margin: 0;
@@ -31,9 +13,17 @@
             box-sizing: border-box;
         }
         
+        :root {
+            --borgonha-profundo: #4A1942;
+            --magenta-vibrante: #9D174D;
+            --creme-luminoso: #FFF9FB;
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+        
         body {
             font-family: var(--font-body);
-            background: linear-gradient(135deg, var(--borgonha-profundo), var(--magenta-vibrante));
+            background: linear-gradient(135deg, var(--borgonha-profundo) 0%, #3A1234 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -42,46 +32,29 @@
         }
         
         .login-container {
-            background: var(--branco-puro);
+            background: white;
+            border-radius: 16px;
             padding: 3rem;
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
             width: 100%;
-            max-width: 450px;
-            animation: fadeInUp 0.6s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
         
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .logo-area {
+        .login-header {
             text-align: center;
             margin-bottom: 2rem;
         }
         
-        .logo-area img {
-            max-width: 200px;
-            margin-bottom: 1rem;
-        }
-        
-        .logo-area h1 {
+        .login-title {
             font-family: var(--font-display);
             font-size: 2rem;
             color: var(--borgonha-profundo);
             margin-bottom: 0.5rem;
         }
         
-        .logo-area p {
-            color: var(--cinza-medio);
-            font-size: 0.95rem;
+        .login-subtitle {
+            color: #666;
+            font-size: 0.9rem;
         }
         
         .form-group {
@@ -90,208 +63,98 @@
         
         .form-group label {
             display: block;
-            font-weight: 600;
-            color: var(--borgonha-profundo);
             margin-bottom: 0.5rem;
-            font-size: 0.95rem;
+            font-weight: 500;
+            color: #333;
         }
         
         .form-group input {
             width: 100%;
-            padding: 1rem;
-            border: 2px solid var(--cinza-claro);
-            border-radius: 15px;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
             font-family: var(--font-body);
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: border-color 0.2s;
         }
         
         .form-group input:focus {
             outline: none;
             border-color: var(--magenta-vibrante);
-            box-shadow: 0 0 0 4px rgba(157, 23, 77, 0.1);
         }
         
-        .password-toggle {
-            position: relative;
-        }
-        
-        .password-toggle input {
-            padding-right: 3rem;
-        }
-        
-        .toggle-btn {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.2rem;
-            color: var(--cinza-medio);
-        }
-        
-        .login-button {
+        .btn-login {
             width: 100%;
-            padding: 1.2rem;
-            background: linear-gradient(135deg, var(--borgonha-profundo), var(--magenta-vibrante));
-            color: var(--branco-puro);
+            background: var(--borgonha-profundo);
+            color: white;
             border: none;
-            border-radius: 20px;
+            padding: 1rem;
+            border-radius: 8px;
             font-family: var(--font-body);
-            font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
+            transition: all 0.3s;
         }
         
-        .login-button:hover {
+        .btn-login:hover {
+            background: #3A1234;
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(157, 23, 77, 0.4);
-        }
-        
-        .login-button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
         }
         
         .error-message {
-            background: rgba(239, 68, 68, 0.1);
-            border-left: 4px solid var(--vermelho-erro);
+            background: #fee;
+            color: #c33;
             padding: 1rem;
-            border-radius: 10px;
-            color: var(--vermelho-erro);
-            font-weight: 600;
+            border-radius: 8px;
             margin-bottom: 1.5rem;
             display: none;
         }
         
         .error-message.show {
             display: block;
-            animation: shake 0.5s ease;
-        }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-        
-        .info-box {
-            background: var(--creme-suave);
-            padding: 1rem;
-            border-radius: 12px;
-            margin-top: 1.5rem;
-            text-align: center;
-            font-size: 0.85rem;
-            color: var(--cinza-medio);
-        }
-        
-        .info-box strong {
-            color: var(--borgonha-profundo);
-            display: block;
-            margin-bottom: 0.3rem;
         }
     </style>
 </head>
 <body>
-    
     <div class="login-container">
-        <div class="logo-area">
-            <img src="https://res.cloudinary.com/dlzrfhwin/image/upload/v1775923045/logo_principal_completo_vvzn8v.png" alt="Dra. Carine Petry">
-            <h1>Painel Administrativo</h1>
-            <p>Sistema de Gestão de Conteúdo</p>
+        <div class="login-header">
+            <h1 class="login-title">Admin</h1>
+            <p class="login-subtitle">Gerenciamento de Blog</p>
         </div>
         
-        <div id="errorMessage" class="error-message">
-            Senha incorreta. Tente novamente.
-        </div>
+        <div id="errorMessage" class="error-message"></div>
         
         <form id="loginForm">
             <div class="form-group">
-                <label for="username">Usuário</label>
-                <input type="text" id="username" value="admin" readonly>
+                <label for="password">Senha</label>
+                <input type="password" id="password" placeholder="Digite sua senha" required autofocus>
             </div>
             
-            <div class="form-group">
-                <label for="password">Senha Mestre</label>
-                <div class="password-toggle">
-                    <input type="password" id="password" placeholder="Digite a senha mestre" required>
-                    <button type="button" class="toggle-btn" onclick="togglePassword()">👁️</button>
-                </div>
-            </div>
-            
-            <button type="submit" class="login-button" id="loginBtn">
-                Acessar Painel
-            </button>
+            <button type="submit" class="btn-login">Entrar</button>
         </form>
-        
-        <div class="info-box">
-            <strong>🔒 Acesso Seguro</strong>
-            Painel protegido por senha mestre<br>
-            Todas as ações são registradas
-        </div>
     </div>
-    
+
     <script>
-        // Senha mestre (em produção, usar backend real)
         const MASTER_PASSWORD = 'carine@admin';
-        
-        function togglePassword() {
-            const passwordInput = document.getElementById('password');
-            const type = passwordInput.type === 'password' ? 'text' : 'password';
-            passwordInput.type = type;
-        }
         
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const password = document.getElementById('password').value;
             const errorMessage = document.getElementById('errorMessage');
-            const loginBtn = document.getElementById('loginBtn');
             
-            // Desabilitar botão durante verificação
-            loginBtn.disabled = true;
-            loginBtn.textContent = 'Verificando...';
-            
-            // Simular delay de verificação
-            setTimeout(() => {
-                if (password === MASTER_PASSWORD) {
-                    // Login bem-sucedido
-                    localStorage.setItem('isAuthenticated', 'true');
-                    localStorage.setItem('loginTime', new Date().toISOString());
-                    
-                    // Feedback visual
-                    loginBtn.textContent = '✅ Autenticado! Redirecionando...';
-                    loginBtn.style.background = 'linear-gradient(135deg, #10B981, #059669)';
-                    
-                    // Redirecionar para dashboard
-                    setTimeout(() => {
-                        window.location.href = 'admin_dashboard.html';
-                    }, 500);
-                } else {
-                    // Senha incorreta
-                    errorMessage.classList.add('show');
-                    loginBtn.disabled = false;
-                    loginBtn.textContent = 'Acessar Painel';
-                    
-                    // Remover mensagem de erro após 3s
-                    setTimeout(() => {
-                        errorMessage.classList.remove('show');
-                    }, 3000);
-                    
-                    // Limpar campo de senha
-                    document.getElementById('password').value = '';
-                    document.getElementById('password').focus();
-                }
-            }, 800);
+            if (password === MASTER_PASSWORD) {
+                // Salvar sessão
+                sessionStorage.setItem('admin_authenticated', 'true');
+                // Redirecionar para dashboard
+                window.location.href = 'dashboard.html';
+            } else {
+                errorMessage.textContent = 'Senha incorreta. Tente novamente.';
+                errorMessage.classList.add('show');
+                document.getElementById('password').value = '';
+            }
         });
-        
-        // Auto-focus no campo de senha
-        document.getElementById('password').focus();
     </script>
-    
 </body>
 </html>
