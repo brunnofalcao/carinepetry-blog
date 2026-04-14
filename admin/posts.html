@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Posts - Painel Admin</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --borgonha-profundo: #4A1942;
+            --magenta-vibrante: #9D174D;
+            --creme-suave: #FFF9FB;
+            --cinza-escuro: #1F1F1F;
+            --cinza-medio: #6B6B6B;
+            --cinza-claro: #E5E5E5;
+            --branco-puro: #FFFFFF;
+            --verde-sucesso: #10B981;
+            
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: var(--font-body);
+            background: var(--creme-suave);
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--cinza-claro);
+        }
+        
+        .page-title h1 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--borgonha-profundo);
+            margin-bottom: 0.3rem;
+        }
+        
+        .page-title p {
+            color: var(--cinza-medio);
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--borgonha-profundo), var(--magenta-vibrante));
+            color: var(--branco-puro);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(157, 23, 77, 0.3);
+        }
+        
+        .btn-secondary {
+            background: var(--creme-suave);
+            color: var(--cinza-escuro);
+            border: 2px solid var(--cinza-claro);
+        }
+        
+        .filters-bar {
+            background: var(--branco-puro);
+            padding: 1.5rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .filter-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 0.8rem 1.2rem;
+            border: 2px solid var(--cinza-claro);
+            border-radius: 12px;
+            font-family: var(--font-body);
+        }
+        
+        .filter-select {
+            padding: 0.8rem 1.2rem;
+            border: 2px solid var(--cinza-claro);
+            border-radius: 12px;
+            font-family: var(--font-body);
+        }
+        
+        .posts-table {
+            background: var(--branco-puro);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        thead {
+            background: linear-gradient(135deg, var(--borgonha-profundo), var(--magenta-vibrante));
+            color: var(--branco-puro);
+        }
+        
+        th, td {
+            padding: 1.2rem 1.5rem;
+            text-align: left;
+        }
+        
+        th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+        }
+        
+        th:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        tbody tr {
+            border-bottom: 1px solid var(--cinza-claro);
+            transition: all 0.2s ease;
+        }
+        
+        tbody tr:hover {
+            background: var(--creme-suave);
+        }
+        
+        .post-title-cell {
+            font-weight: 600;
+            color: var(--borgonha-profundo);
+            max-width: 400px;
+        }
+        
+        .post-category {
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .cat-sam { background: rgba(239, 68, 68, 0.1); color: #DC2626; }
+        .cat-sed { background: rgba(245, 158, 11, 0.1); color: #D97706; }
+        .cat-covid { background: rgba(59, 130, 246, 0.1); color: #2563EB; }
+        .cat-sono { background: rgba(16, 185, 129, 0.1); color: #059669; }
+        .cat-casos { background: rgba(139, 92, 246, 0.1); color: #7C3AED; }
+        .cat-investigacao { background: rgba(236, 72, 153, 0.1); color: #DB2777; }
+        
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .status-published {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--verde-sucesso);
+        }
+        
+        .status-draft {
+            background: rgba(107, 107, 107, 0.1);
+            color: var(--cinza-medio);
+        }
+        
+        .views-count {
+            font-weight: 600;
+            color: var(--magenta-vibrante);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .icon-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            background: var(--creme-suave);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        
+        .icon-btn:hover {
+            background: var(--magenta-vibrante);
+            color: var(--branco-puro);
+            transform: scale(1.1);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+        
+        .empty-state-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .empty-state h3 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--borgonha-profundo);
+            margin-bottom: 1rem;
+        }
+        
+        .empty-state p {
+            color: var(--cinza-medio);
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <!-- HEADER -->
+        <div class="page-header">
+            <div class="page-title">
+                <h1>📚 Gerenciar Posts</h1>
+                <p>Todos os artigos do blog</p>
+            </div>
+            
+            <div class="header-actions">
+                <a href="admin_dashboard.html" class="btn btn-secondary">← Voltar</a>
+                <a href="admin_editor.html" class="btn btn-primary">✍️ Novo Post</a>
+            </div>
+        </div>
+        
+        <!-- FILTERS -->
+        <div class="filters-bar">
+            <input type="text" id="searchInput" class="filter-input" placeholder="🔍 Buscar posts...">
+            
+            <select id="categoryFilter" class="filter-select">
+                <option value="">Todas as categorias</option>
+                <option value="sam">SAM</option>
+                <option value="sed">SED</option>
+                <option value="covid">Covid Longa</option>
+                <option value="sono">Medicina do Sono</option>
+                <option value="casos">Casos Clínicos</option>
+                <option value="investigacao">Investigação</option>
+            </select>
+            
+            <select id="statusFilter" class="filter-select">
+                <option value="">Todos os status</option>
+                <option value="published">Publicados</option>
+                <option value="draft">Rascunhos</option>
+            </select>
+            
+            <select id="sortBy" class="filter-select">
+                <option value="date">Mais recentes</option>
+                <option value="views">Mais vistos</option>
+                <option value="title">A-Z</option>
+            </select>
+        </div>
+        
+        <!-- TABLE -->
+        <div class="posts-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th onclick="sortTable('title')">Título ↕</th>
+                        <th onclick="sortTable('category')">Categoria ↕</th>
+                        <th onclick="sortTable('date')">Data ↕</th>
+                        <th onclick="sortTable('status')">Status ↕</th>
+                        <th onclick="sortTable('views')">Visualizações ↕</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="postsTableBody">
+                    <!-- Posts will be loaded here -->
+                </tbody>
+            </table>
+            
+            <!-- EMPTY STATE -->
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <div class="empty-state-icon">📝</div>
+                <h3>Nenhum post encontrado</h3>
+                <p>Comece criando seu primeiro artigo!</p>
+                <a href="admin_editor.html" class="btn btn-primary">✍️ Criar Primeiro Post</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let posts = [];
+        
+        // Load posts
+        function loadPosts() {
+            posts = JSON.parse(localStorage.getItem('blogPosts') || '[]');
+            
+            // Add example posts if empty
+            if (posts.length === 0) {
+                posts = [
+                    {
+                        id: 1,
+                        title: 'SAM: Protocolo Diagnóstico para Casos Complexos',
+                        category: 'sam',
+                        date: new Date('2026-04-12').toISOString(),
+                        status: 'published',
+                        views: 847
+                    },
+                    {
+                        id: 2,
+                        title: 'SED Hipermóvel: Por Que o Diagnóstico Demora Tanto?',
+                        category: 'sed',
+                        date: new Date('2026-04-10').toISOString(),
+                        status: 'published',
+                        views: 652
+                    },
+                    {
+                        id: 3,
+                        title: 'Fadiga Pós-Covid: Não É "Só Cansaço"',
+                        category: 'covid',
+                        date: new Date('2026-04-08').toISOString(),
+                        status: 'published',
+                        views: 1234
+                    },
+                    {
+                        id: 4,
+                        title: 'Apneia do Sono em Mulheres: Subdiagnóstico Sistêmico',
+                        category: 'sono',
+                        date: new Date('2026-04-05').toISOString(),
+                        status: 'published',
+                        views: 423
+                    },
+                    {
+                        id: 5,
+                        title: 'Caso Real: 8 Anos Sem Diagnóstico',
+                        category: 'casos',
+                        date: new Date('2026-04-03').toISOString(),
+                        status: 'published',
+                        views: 891
+                    },
+                    {
+                        id: 6,
+                        title: 'Mediadores Mastocitários: Além da Triptase',
+                        category: 'sam',
+                        date: new Date('2026-04-01').toISOString(),
+                        status: 'draft',
+                        views: 0
+                    }
+                ];
+                localStorage.setItem('blogPosts', JSON.stringify(posts));
+            }
+            
+            renderPosts();
+        }
+        
+        // Render posts
+        function renderPosts() {
+            const tbody = document.getElementById('postsTableBody');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (posts.length === 0) {
+                tbody.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            
+            tbody.innerHTML = posts.map(post => `
+                <tr>
+                    <td class="post-title-cell">${post.title}</td>
+                    <td><span class="post-category cat-${post.category}">${getCategoryName(post.category)}</span></td>
+                    <td>${formatDate(post.date)}</td>
+                    <td><span class="status-badge status-${post.status}">${post.status === 'published' ? 'Publicado' : 'Rascunho'}</span></td>
+                    <td class="views-count">👁️ ${post.views.toLocaleString()}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="icon-btn" onclick="editPost(${post.id})" title="Editar">✏️</button>
+                            <button class="icon-btn" onclick="viewPost(${post.id})" title="Ver">👁️</button>
+                            <button class="icon-btn" onclick="deletePost(${post.id})" title="Excluir">🗑️</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        // Helper functions
+        function getCategoryName(cat) {
+            const names = {
+                'sam': 'SAM',
+                'sed': 'SED',
+                'covid': 'COVID',
+                'sono': 'SONO',
+                'casos': 'CASOS',
+                'investigacao': 'INVESTIGAÇÃO'
+            };
+            return names[cat] || cat.toUpperCase();
+        }
+        
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('pt-BR');
+        }
+        
+        // Actions
+        function editPost(id) {
+            alert('Editor será implementado em breve!');
+        }
+        
+        function viewPost(id) {
+            alert('Preview será implementado em breve!');
+        }
+        
+        function deletePost(id) {
+            if (confirm('Tem certeza que deseja excluir este post?')) {
+                posts = posts.filter(p => p.id !== id);
+                localStorage.setItem('blogPosts', JSON.stringify(posts));
+                loadPosts();
+            }
+        }
+        
+        // Filters
+        document.getElementById('searchInput').addEventListener('input', applyFilters);
+        document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+        document.getElementById('statusFilter').addEventListener('change', applyFilters);
+        document.getElementById('sortBy').addEventListener('change', applyFilters);
+        
+        function applyFilters() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+            const status = document.getElementById('statusFilter').value;
+            const sortBy = document.getElementById('sortBy').value;
+            
+            let filtered = [...posts];
+            
+            // Search
+            if (search) {
+                filtered = filtered.filter(p => 
+                    p.title.toLowerCase().includes(search)
+                );
+            }
+            
+            // Category
+            if (category) {
+                filtered = filtered.filter(p => p.category === category);
+            }
+            
+            // Status
+            if (status) {
+                filtered = filtered.filter(p => p.status === status);
+            }
+            
+            // Sort
+            if (sortBy === 'views') {
+                filtered.sort((a, b) => b.views - a.views);
+            } else if (sortBy === 'date') {
+                filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+            } else if (sortBy === 'title') {
+                filtered.sort((a, b) => a.title.localeCompare(b.title));
+            }
+            
+            posts = filtered;
+            renderPosts();
+            posts = JSON.parse(localStorage.getItem('blogPosts') || '[]');
+        }
+        
+        // Sort table
+        function sortTable(column) {
+            document.getElementById('sortBy').value = column === 'date' ? 'date' : column === 'views' ? 'views' : 'title';
+            applyFilters();
+        }
+        
+        // Check auth
+        if (localStorage.getItem('isAuthenticated') !== 'true') {
+            window.location.href = 'admin_login.html';
+        }
+        
+        // Initialize
+        loadPosts();
+    </script>
+    
+</body>
+</html>

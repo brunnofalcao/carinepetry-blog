@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dra. Carine Petry - Investigação Clínica de Alta Complexidade. Medicina do Sono especializada em SAM, SED e Covid Longa.">
+    <title>Dra. Carine Petry | Investigação Clínica de Alta Complexidade</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Cores Principais */
+            --borgonha-profundo: #4A1942;
+            --magenta-vibrante: #9D174D;
+            --creme-suave: #FFF9FB;
+            
+            /* Paleta Expandida - Borgonha */
+            --borgonha-escuro: #2D0F27;
+            --borgonha-medio: #3A1335;
+            --borgonha-claro: #6B2359;
+            
+            /* Paleta Expandida - Magenta */
+            --magenta-escuro: #7E1139;
+            --magenta-medio: #B91C55;
+            --magenta-claro: #D946A6;
+            
+            /* Neutros */
+            --cinza-escuro: #1F1F1F;
+            --cinza-medio: #6B6B6B;
+            --cinza-claro: #E5E5E5;
+            --branco-puro: #FFFFFF;
+            
+            /* Tipografia */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', sans-serif;
+            
+            /* Espaçamentos */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 6rem;
+            
+            /* Transições */
+            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--cinza-escuro);
+            background-color: var(--creme-suave);
+            overflow-x: hidden;
+        }
+        
+        /* =========================
+           HEADER & NAVIGATION
+        ========================= */
+        
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 249, 251, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(74, 25, 66, 0.1);
+            transition: var(--transition-smooth);
+        }
+        
+        .header.scrolled {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            height: 50px;
+            transition: var(--transition-smooth);
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+        
+        .nav-menu a {
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--borgonha-profundo);
+            text-decoration: none;
+            position: relative;
+            transition: var(--transition-smooth);
+            letter-spacing: 0.3px;
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--magenta-vibrante);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        .cta-button {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, var(--borgonha-profundo), var(--magenta-vibrante));
+            color: var(--branco-puro);
+            border: none;
+            border-radius: 30px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 15px rgba(157, 23, 77, 0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(157, 23, 77, 0.3);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--borgonha-profundo);
+            cursor: pointer;
+        }
+        
+        /* =========================
+           HERO SECTION
+        ========================= */
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 100px;
+        }
+        
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                var(--creme-suave) 0%,
+                rgba(255, 249, 251, 0.8) 50%,
+                rgba(217, 70, 166, 0.05) 100%
+            );
+            z-index: 0;
+        }
+        
+        .hero-pattern {
+            position: absolute;
+            top: 0;
+            right: -10%;
+            width: 50%;
+            height: 100%;
+            opacity: 0.03;
+            background-image: 
+                repeating-linear-gradient(45deg, var(--borgonha-profundo) 0, var(--borgonha-profundo) 1px, transparent 0, transparent 50%),
+                repeating-linear-gradient(-45deg, var(--magenta-vibrante) 0, var(--magenta-vibrante) 1px, transparent 0, transparent 50%);
+            background-size: 40px 40px;
+            animation: patternMove 20s linear infinite;
+        }
+        
+        @keyframes patternMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(40px); }
+        }
+        
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .hero-content {
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+        }
+        
+        .hero-label {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--magenta-vibrante);
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+        
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 500;
+            line-height: 1.1;
+            color: var(--borgonha-profundo);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+        
+        .hero-subtitle {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--magenta-medio);
+            margin-bottom: 2rem;
+            font-style: italic;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+        
+        .hero-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--cinza-medio);
+            margin-bottom: 3rem;
+            max-width: 500px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.8s forwards;
+        }
+        
+        .hero-ctas {
+            display: flex;
+            gap: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1s forwards;
+        }
+        
+        .hero-image {
+            position: relative;
+            opacity: 0;
+            animation: fadeInRight 1s ease 0.6s forwards;
+        }
+        
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .hero-visual {
+            width: 100%;
+            height: 600px;
+            background: linear-gradient(135deg, rgba(74, 25, 66, 0.05), rgba(157, 23, 77, 0.05));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-visual::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(217, 70, 166, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .hero-stats {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            background: var(--branco-puro);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--magenta-vibrante);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--cinza-medio);
+            font-weight: 500;
+        }
+        
+        /* =========================
+           SECTIONS GERAIS
+        ========================= */
+        
+        .section {
+            padding: var(--spacing-xl) 2rem;
+            position: relative;
+        }
+        
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .section-label {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--magenta-vibrante);
+            margin-bottom: 1rem;
+        }
+        
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 500;
+            color: var(--borgonha-profundo);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .section-description {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--cinza-medio);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* =========================
+           SOBRE
+        ========================= */
+        
+        .sobre {
+            background: var(--branco-puro);
+        }
+        
+        .sobre-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: var(--spacing-lg);
+        }
+        
+        .sobre-text h3 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--borgonha-profundo);
+            margin-bottom: 1.5rem;
+        }
+        
+        .sobre-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: var(--cinza-medio);
+        }
+        
+        .credenciais {
+            background: var(--creme-suave);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--magenta-vibrante);
+        }
+        
+        .credenciais h4 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            color: var(--borgonha-profundo);
+            margin-bottom: 1rem;
+        }
+        
+        .credenciais ul {
+            list-style: none;
+        }
+        
+        .credenciais li {
+            padding: 0.5rem 0;
+            color: var(--cinza-escuro);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .credenciais li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--magenta-vibrante);
+            font-weight: bold;
+        }
+        
+        /* =========================
+           ÁREAS DE ATUAÇÃO
+        ========================= */
+        
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            margin-top: var(--spacing-lg);
+        }
+        
+        .area-card {
+            background: var(--branco-puro);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: var(--transition-smooth);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .area-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--borgonha-profundo), var(--magenta-vibrante));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .area-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .area-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(74, 25, 66, 0.15);
+            border-color: var(--magenta-claro);
+        }
+        
+        .area-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .area-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            color: var(--borgonha-profundo);
+            margin-bottom: 1rem;
+        }
+        
+        .area-card p {
+            color: var(--cinza-medio);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        
+        .area-card ul {
+            list-style: none;
+            text-align: left;
+        }
+        
+        .area-card li {
+            padding: 0.4rem 0;
+            color: var(--cinza-escuro);
+            font-size: 0.95rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .area-card li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--magenta-vibrante);
+            font-weight: bold;
+        }
+        
+        /* =========================
+           COMO FUNCIONA
+        ========================= */
+        
+        .como-funciona {
+            background: var(--branco-puro);
+        }
+        
+        .processo-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: var(--spacing-lg);
+            position: relative;
+        }
+        
+        .processo-grid::before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--magenta-claro), var(--borgonha-claro));
+            z-index: 0;
+        }
+        
+        .processo-step {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        
+        .step-number {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--borgonha-profundo), var(--magenta-vibrante));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--branco-puro);
+            box-shadow: 0 10px 30px rgba(157, 23, 77, 0.3);
+        }
+        
+        .processo-step h3 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            color: var(--borgonha-profundo);
+            margin-bottom: 1rem;
+        }
+        
+        .processo-step p {
+            color: var(--cinza-medio);
+            line-height: 1.6;
+        }
+        
+        /* =========================
+           MANIFESTO
+        ========================= */
+        
+        .manifesto {
+            background: linear-gradient(135deg, var(--borgonha-profundo), var(--borgonha-medio));
+            color: var(--branco-puro);
+            text-align: center;
+            padding: var(--spacing-xl) 2rem;
+        }
+        
+        .manifesto-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .manifesto h2 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            line-height: 1.3;
+        }
+        
+        .manifesto p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+        }
+        
+        .manifesto-highlight {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-style: italic;
+            margin: 3rem 0;
+            padding: 2rem;
+            border-top: 2px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        /* =========================
+           CONTATO
+        ========================= */
+        
+        .contato {
+            background: var(--creme-suave);
+        }
+        
+        .contato-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: var(--spacing-lg);
+        }
+        
+        .contato-info h3 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--borgonha-profundo);
+            margin-bottom: 2rem;
+        }
+        
+        .contato-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--branco-puro);
+            border-radius: 12px;
+            transition: var(--transition-smooth);
+        }
+        
+        .contato-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(74, 25, 66, 0.1);
+        }
+        
+        .contato-icon {
+            font-size: 2rem;
+            color: var(--magenta-vibrante);
+        }
+        
+        .contato-details h4 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--borgonha-profundo);
+            margin-bottom: 0.5rem;
+        }
+        
+        .contato-details p {
+            color: var(--cinza-medio);
+            line-height: 1.6;
+        }
+        
+        .contato-details a {
+            color: var(--magenta-vibrante);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+        }
+        
+        .contato-details a:hover {
+            color: var(--borgonha-profundo);
+        }
+        
+        .contato-form {
+            background: var(--branco-puro);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            color: var(--borgonha-profundo);
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--cinza-claro);
+            border-radius: 10px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: var(--transition-smooth);
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--magenta-vibrante);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        .submit-button {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--borgonha-profundo), var(--magenta-vibrante));
+            color: var(--branco-puro);
+            border: none;
+            border-radius: 30px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            box-shadow: 0 6px 20px rgba(157, 23, 77, 0.3);
+        }
+        
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(157, 23, 77, 0.4);
+        }
+        
+        /* =========================
+           FOOTER
+        ========================= */
+        
+        .footer {
+            background: var(--borgonha-profundo);
+            color: var(--branco-puro);
+            padding: 4rem 2rem 2rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-brand h3 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-brand p {
+            opacity: 0.8;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links h4 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+        
+        .footer-links a:hover {
+            color: var(--branco-puro);
+            padding-left: 5px;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 2rem;
+            text-align: center;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* =========================
+           RESPONSIVE
+        ========================= */
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background: var(--branco-puro);
+                flex-direction: column;
+                padding: 6rem 2rem;
+                gap: 2rem;
+                transition: right 0.4s ease;
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding-top: 2rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .hero-visual {
+                height: 400px;
+            }
+            
+            .hero-stats {
+                position: static;
+                transform: none;
+                width: 100%;
+                margin-top: 2rem;
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-image {
+                order: -1;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .sobre-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .areas-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .processo-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .processo-grid::before {
+                display: none;
+            }
+            
+            .contato-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .manifesto h2 {
+                font-size: 2rem;
+            }
+            
+            .manifesto p {
+                font-size: 1.1rem;
+            }
+            
+            .manifesto-highlight {
+                font-size: 1.5rem;
+            }
+        }
+        
+        /* =========================
+           SCROLL ANIMATIONS
+        ========================= */
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- HEADER -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <img src="https://res.cloudinary.com/dlzrfhwin/image/upload/v1775923045/logo_principal_completo_vvzn8v.png" alt="Dra. Carine Petry" class="logo">
+            
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#areas">Áreas</a></li>
+                    <li><a href="#como-funciona">Como Funciona</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+            
+            <button class="cta-button" onclick="window.location.href='#contato'">Agendar Consulta</button>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        </div>
+    </header>
+    
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+        <div class="hero-background"></div>
+        <div class="hero-pattern"></div>
+        
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-label">Medicina do Sono • CRM-DF 15342</div>
+                <h1 class="hero-title">Investigação Clínica de Alta Complexidade</h1>
+                <p class="hero-subtitle">Profundidade antes de resposta</p>
+                <p class="hero-description">
+                    Quando o diagnóstico exige mais do que 15 minutos. Especialista em casos que outros médicos não resolveram: SAM, SED e sequelas de Covid Longa.
+                </p>
+                <div class="hero-ctas">
+                    <button class="cta-button" onclick="window.location.href='#contato'">Agendar Avaliação</button>
+                </div>
+            </div>
+            
+            <div class="hero-image">
+                <div class="hero-visual">
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">25+</span>
+                            <span class="stat-label">Anos de Experiência</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">3</span>
+                            <span class="stat-label">Especializações Raras</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Rigor Investigativo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- SOBRE -->
+    <section class="section sobre fade-in" id="sobre">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">Quem Sou</div>
+                <h2 class="section-title">Medicina que Investiga,<br>Não que Prescreve</h2>
+            </div>
+            
+            <div class="sobre-content">
+                <div class="sobre-text">
+                    <h3>Dra. Carine Petry</h3>
+                    <p>
+                        Sou médica especialista em Medicina do Sono com formação dedicada a <strong>casos de alta complexidade</strong>. Meu trabalho não é dar respostas rápidas — é investigar profundamente até encontrar a causa raiz.
+                    </p>
+                    <p>
+                        Atendo pacientes que já passaram por diversos médicos sem diagnóstico definitivo. Meu diferencial está na <strong>metodologia investigativa rigorosa</strong>, no tempo dedicado à escuta e na capacidade de conectar sinais clínicos que outros profissionais não perceberam.
+                    </p>
+                    <p>
+                        Especialista em <strong>SAM (Síndrome de Ativação Mastocitária)</strong>, <strong>SED (Síndrome de Ehlers-Danlos)</strong> e <strong>sequelas de Covid Longa</strong> — condições raras, subdiagnosticadas e que exigem profundo conhecimento técnico.
+                    </p>
+                </div>
+                
+                <div class="credenciais">
+                    <h4>Formação & Credenciais</h4>
+                    <ul>
+                        <li><strong>CRM-DF 15342</strong></li>
+                        <li><strong>RQE 16243</strong> — Medicina do Sono</li>
+                        <li><strong>RQE 12865</strong> — Clínica Médica</li>
+                        <li>Especialização em Medicina do Sono</li>
+                        <li>Expertise em SAM e SED</li>
+                        <li>Protocolo Covid Longa</li>
+                        <li>Metodologia de Investigação Diagnóstica</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ÁREAS DE ATUAÇÃO -->
+    <section class="section fade-in" id="areas">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">Especialidades</div>
+                <h2 class="section-title">Áreas de Atuação</h2>
+                <p class="section-description">
+                    Condições raras e complexas que exigem investigação profunda, rigor diagnóstico e acompanhamento especializado.
+                </p>
+            </div>
+            
+            <div class="areas-grid">
+                <div class="area-card">
+                    <div class="area-icon">🧬</div>
+                    <h3>SAM</h3>
+                    <p><strong>Síndrome de Ativação Mastocitária</strong></p>
+                    <p>Condição imunológica rara que causa reações sistêmicas imprevisíveis. Investigação detalhada de sintomas múltiplos e aparentemente desconexos.</p>
+                    <ul>
+                        <li>Diagnóstico diferencial rigoroso</li>
+                        <li>Protocolo de investigação laboratorial</li>
+                        <li>Manejo clínico personalizado</li>
+                    </ul>
+                </div>
+                
+                <div class="area-card">
+                    <div class="area-icon">🦴</div>
+                    <h3>SED</h3>
+                    <p><strong>Síndrome de Ehlers-Danlos</strong></p>
+                    <p>Distúrbio genético do tecido conectivo com manifestações multissistêmicas. Exige avaliação clínica minuciosa e expertise em sinais sutis.</p>
+                    <ul>
+                        <li>Identificação de sinais clínicos raros</li>
+                        <li>Avaliação articular e tegumentar</li>
+                        <li>Plano terapêutico individualizado</li>
+                    </ul>
+                </div>
+                
+                <div class="area-card">
+                    <div class="area-icon">🫁</div>
+                    <h3>Covid Longa</h3>
+                    <p><strong>Sequelas Pós-Covid</strong></p>
+                    <p>Síndrome pós-viral complexa com manifestações neurológicas, cardiovasculares, respiratórias e imunológicas. Investigação integrada e multissistêmica.</p>
+                    <ul>
+                        <li>Avaliação de sequelas crônicas</li>
+                        <li>Protocolo de recuperação funcional</li>
+                        <li>Monitoramento evolutivo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- COMO FUNCIONA -->
+    <section class="section como-funciona fade-in" id="como-funciona">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">Metodologia</div>
+                <h2 class="section-title">Como Funciona a Consulta</h2>
+                <p class="section-description">
+                    Processo estruturado de investigação clínica que prioriza profundidade, rigor e clareza diagnóstica.
+                </p>
+            </div>
+            
+            <div class="processo-grid">
+                <div class="processo-step">
+                    <div class="step-number">1</div>
+                    <h3>Anamnese Profunda</h3>
+                    <p>Escuta atenta de toda história clínica, sintomas e exames anteriores. Tempo necessário para compreender o caso.</p>
+                </div>
+                
+                <div class="processo-step">
+                    <div class="step-number">2</div>
+                    <h3>Exame Clínico Detalhado</h3>
+                    <p>Avaliação minuciosa de sinais físicos, muitas vezes ignorados em consultas rápidas.</p>
+                </div>
+                
+                <div class="processo-step">
+                    <div class="step-number">3</div>
+                    <h3>Investigação Laboratorial</h3>
+                    <p>Solicitação estratégica de exames complementares baseados em hipóteses diagnósticas fundamentadas.</p>
+                </div>
+                
+                <div class="processo-step">
+                    <div class="step-number">4</div>
+                    <h3>Plano Terapêutico</h3>
+                    <p>Construção conjunta de estratégia de tratamento personalizada, com acompanhamento próximo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- MANIFESTO -->
+    <section class="manifesto fade-in">
+        <div class="manifesto-content">
+            <h2>Você Não É Frescura</h2>
+            <p>
+                Se você já ouviu que seus sintomas "são só ansiedade", que "está tudo na sua cabeça", ou que "você precisa relaxar" — você está no lugar certo.
+            </p>
+            <p>
+                Seus sintomas são reais. Sua dor é válida. E merece investigação séria.
+            </p>
+            <div class="manifesto-highlight">
+                "Medicina investigativa não é apenas pedir exames.<br>
+                É saber quais perguntas fazer primeiro."
+            </div>
+            <p>
+                Trabalho com casos complexos porque acredito que todo paciente merece clareza diagnóstica — mesmo quando o caminho é difícil.
+            </p>
+        </div>
+    </section>
+    
+    <!-- CONTATO -->
+    <section class="section contato fade-in" id="contato">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">Contato</div>
+                <h2 class="section-title">Agende Sua Consulta</h2>
+                <p class="section-description">
+                    Atendimento presencial em Brasília-DF e consultas de mentoria profissional.
+                </p>
+            </div>
+            
+            <div class="contato-grid">
+                <div class="contato-info">
+                    <h3>Informações de Contato</h3>
+                    
+                    <div class="contato-item">
+                        <div class="contato-icon">📍</div>
+                        <div class="contato-details">
+                            <h4>Endereço</h4>
+                            <p>
+                                Centro Médico Lucio Costa<br>
+                                Bloco I / T-56<br>
+                                SGAS 610/611 - Via L2 Sul<br>
+                                Brasília-DF, CEP 70200-700
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="contato-item">
+                        <div class="contato-icon">📞</div>
+                        <div class="contato-details">
+                            <h4>Telefones</h4>
+                            <p>
+                                <a href="tel:+556132637721">(61) 3263-7721</a><br>
+                                <a href="https://wa.me/5561992721947" target="_blank">(61) 99272-1947</a> (WhatsApp)
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="contato-item">
+                        <div class="contato-icon">✉️</div>
+                        <div class="contato-details">
+                            <h4>E-mail</h4>
+                            <p>
+                                <a href="/cdn-cgi/l/email-protection#c2a1adacb6a3b6ad82a1a3b0abaca7b2a7b6b0bbeca1adafeca0b0"><span class="__cf_email__" data-cfemail="096a66677d687d66496a687b60676c796c7d7b70276a6664276b7b">[email&#160;protected]</span></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contato-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="nome">Nome Completo</label>
+                            <input type="text" id="nome" name="nome" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telefone">Telefone</label>
+                            <input type="tel" id="telefone" name="telefone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="mensagem">Mensagem</label>
+                            <textarea id="mensagem" name="mensagem" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-button">Enviar Mensagem</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>Dra. Carine Petry</h3>
+                <p>Investigação Clínica de Alta Complexidade</p>
+                <p>CRM-DF 15342 • RQE 16243/12865</p>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#areas">Áreas</a></li>
+                    <li><a href="#como-funciona">Como Funciona</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Especialidades</h4>
+                <ul>
+                    <li>SAM</li>
+                    <li>SED</li>
+                    <li>Covid Longa</li>
+                    <li>Medicina do Sono</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Dra. Carine Petry. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    
+    <!-- JAVASCRIPT -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('active');
+            });
+        });
+        
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Form submission (exemplo - adaptar para backend real)
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                nome: document.getElementById('nome').value,
+                email: document.getElementById('email').value,
+                telefone: document.getElementById('telefone').value,
+                mensagem: document.getElementById('mensagem').value
+            };
+            
+            // Aqui você integraria com seu backend ou serviço de email
+            console.log('Formulário enviado:', formData);
+            
+            // Feedback visual
+            alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+            this.reset();
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+    

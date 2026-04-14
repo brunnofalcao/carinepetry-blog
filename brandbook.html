@@ -1,0 +1,1782 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brandbook - Dra. Carine Petry</title>
+    <script>
+        function copiarTexto(elementId, event) {
+            // Prevenir comportamento padrão
+            if (event) event.preventDefault();
+            
+            const elemento = document.getElementById(elementId);
+            if (!elemento) {
+                alert('Elemento não encontrado');
+                return;
+            }
+            
+            const texto = elemento.textContent || elemento.innerText;
+            
+            // Tentar usar clipboard API
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(texto).then(() => {
+                    // Feedback visual
+                    const botao = event ? event.target : event.currentTarget;
+                    if (botao) {
+                        const textoOriginal = botao.innerHTML;
+                        botao.innerHTML = '✅ COPIADO!';
+                        botao.style.background = '#22c55e';
+                        
+                        setTimeout(() => {
+                            botao.innerHTML = textoOriginal;
+                            botao.style.background = '';
+                        }, 2000);
+                    }
+                }).catch(err => {
+                    console.error('Erro ao copiar:', err);
+                    fallbackCopy(texto);
+                });
+            } else {
+                // Fallback para navegadores antigos
+                fallbackCopy(texto);
+            }
+        }
+        
+        function fallbackCopy(texto) {
+            const textarea = document.createElement('textarea');
+            textarea.value = texto;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                alert('✅ Texto copiado!');
+            } catch (err) {
+                alert('Erro ao copiar. Selecione o texto manualmente.');
+            }
+            document.body.removeChild(textarea);
+        }
+        
+        function baixarLogo(nomeArquivo) {
+            const link = document.createElement('a');
+            link.href = nomeArquivo;
+            link.download = nomeArquivo;
+            link.click();
+        }
+        
+        // Menu mobile toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('menu-overlay');
+            const button = document.querySelector('.mobile-menu-button');
+            const isOpen = menu.classList.contains('open');
+            
+            if (isOpen) {
+                menu.classList.remove('open');
+                overlay.classList.remove('open');
+                button.classList.remove('open');
+                document.body.style.overflow = '';
+            } else {
+                menu.classList.add('open');
+                overlay.classList.add('open');
+                button.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        // Fechar menu ao clicar em link
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('menu-overlay');
+            const button = document.querySelector('.mobile-menu-button');
+            menu.classList.remove('open');
+            overlay.classList.remove('open');
+            button.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+    </script>
+    <style>
+        /* Importação de fontes */
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        /* Reset e base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Prevenir scroll horizontal em mobile */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            color: var(--cinza-escuro);
+            background: var(--creme-luminoso);
+        }
+        
+        /* Garantir que nenhum elemento ultrapasse a tela */
+        img, video, iframe, embed, object {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        pre, code, table {
+            max-width: 100%;
+            overflow-x: auto;
+        }
+        
+        :root {
+            /* Cores da marca */
+            --borgonha-profundo: #4A1942;
+            --magenta-vibrante: #9D174D;
+            --creme-luminoso: #FFF9FB;
+            --borgonha-dark: #2D0F28;
+            --magenta-dark: #7D1450;
+            --cinza-escuro: #4A4A4A;
+            --cinza-medio: #9E9E9E;
+            --cinza-claro: #E5E5E5;
+            
+            /* Tipografia */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+            /* Cores da marca */
+            --borgonha-profundo: #4A1942;
+            --magenta-vibrante: #9D174D;
+            --creme-luminoso: #FFF9FB;
+            --borgonha-dark: #2D0F28;
+            --magenta-dark: #7D1450;
+            --cinza-escuro: #4A4A4A;
+            --cinza-medio: #9E9E9E;
+            --cinza-claro: #E5E5E5;
+            
+            /* Tipografia */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            color: var(--cinza-escuro);
+            background: var(--creme-luminoso);
+        }
+        
+        /* Container principal */
+        .brandbook-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Menu mobile - esconder no desktop */
+        .mobile-menu-button,
+        .mobile-menu,
+        .menu-overlay {
+            display: none;
+        }
+        
+        /* Navegação lateral */
+        .sidebar {
+            width: 280px;
+            background: var(--borgonha-profundo);
+            color: white;
+            padding: 2rem 1.5rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        
+        .sidebar-logo {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .sidebar-logo h1 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-logo p {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+        
+        .sidebar-nav ul {
+            list-style: none;
+        }
+        
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-nav a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        /* Conteúdo principal */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+        }
+        
+        /* Tipografia de conteúdo */
+        h1 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--borgonha-profundo);
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+        }
+        
+        h2 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--borgonha-profundo);
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+        }
+        
+        h3 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--borgonha-profundo);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        h4 {
+            font-family: var(--font-body);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--borgonha-profundo);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+        
+        /* Seções */
+        section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 2rem;
+        }
+        
+        .section-header {
+            background: linear-gradient(135deg, var(--borgonha-profundo), var(--magenta-dark));
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .section-header h2 {
+            color: white;
+            margin: 0;
+        }
+        
+        .section-header p {
+            opacity: 0.9;
+            margin: 0.5rem 0 0 0;
+        }
+        
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(74, 25, 66, 0.08);
+        }
+        
+        .card-highlight {
+            border-left: 4px solid var(--magenta-vibrante);
+        }
+        
+        /* Placeholder de imagens */
+        .image-placeholder {
+            background: var(--cinza-claro);
+            border: 2px dashed var(--borgonha-profundo);
+            border-radius: 8px;
+            padding: 3rem 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .image-placeholder .icon {
+            font-size: 3rem;
+            color: var(--borgonha-profundo);
+            margin-bottom: 1rem;
+        }
+        
+        .image-placeholder h4 {
+            color: var(--borgonha-profundo);
+            margin: 0 0 0.5rem 0;
+        }
+        
+        .image-placeholder p {
+            color: var(--cinza-medio);
+            font-size: 0.9rem;
+            margin: 0.25rem 0;
+        }
+        
+        .image-placeholder .specs {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--cinza-medio);
+            font-size: 0.85rem;
+            color: var(--cinza-escuro);
+        }
+        
+        /* Tabelas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        thead {
+            background: var(--borgonha-profundo);
+            color: white;
+        }
+        
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--cinza-claro);
+        }
+        
+        tbody tr:hover {
+            background: rgba(74, 25, 66, 0.03);
+        }
+        
+        /* Cores showcase */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .color-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .color-sample {
+            height: 120px;
+        }
+        
+        .color-info {
+            padding: 1rem;
+        }
+        
+        .color-info h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+        }
+        
+        .color-info p {
+            font-size: 0.85rem;
+            margin: 0.25rem 0;
+            color: var(--cinza-medio);
+        }
+        
+        /* Badges e tags */
+        .badge {
+            display: inline-block;
+            background: var(--magenta-vibrante);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+        }
+        
+        .badge.secondary {
+            background: var(--borgonha-profundo);
+        }
+        
+        /* Listas */
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Code blocks */
+        pre, code {
+            font-family: 'Courier New', monospace;
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+        
+        pre {
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        code {
+            padding: 0.2rem 0.4rem;
+            font-size: 0.9em;
+        }
+        
+        /* Botões de ação */
+        .btn-download {
+            display: inline-block;
+            background: var(--magenta-vibrante);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .btn-download:hover {
+            background: var(--magenta-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(157, 23, 77, 0.3);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 2rem 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .color-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Scroll suave */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Destaque de seção ativa */
+        section:target {
+            animation: highlight 1s ease;
+        }
+        
+        @keyframes highlight {
+            0% {
+                background: rgba(157, 23, 77, 0.1);
+            }
+            100% {
+                background: transparent;
+            }
+        }
+        
+        /* ========================================
+           RESPONSIVE DESIGN - MOBILE
+           ======================================== */
+        
+        @media (max-width: 768px) {
+            /* Forçar contenção em mobile */
+            * {
+                max-width: 100%;
+            }
+            
+            html, body {
+                overflow-x: hidden !important;
+            }
+            
+            .brandbook-container {
+                overflow-x: hidden;
+            }
+            
+            /* ===== MENU MOBILE ===== */
+            
+            /* Mostrar elementos mobile */
+            .mobile-menu-button {
+                display: block !important;
+            }
+            
+            /* Botão hamburger */
+            .mobile-menu-button {
+                display: block;
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 10000;
+                background: var(--magenta-vibrante);
+                border: none;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                cursor: pointer;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                transition: all 0.3s ease;
+            }
+            
+            .mobile-menu-button:active {
+                transform: scale(0.95);
+            }
+            
+            .hamburger {
+                position: relative;
+                width: 24px;
+                height: 2px;
+                background: white;
+                margin: 0 auto;
+                transition: all 0.3s ease;
+            }
+            
+            .hamburger::before,
+            .hamburger::after {
+                content: '';
+                position: absolute;
+                width: 24px;
+                height: 2px;
+                background: white;
+                transition: all 0.3s ease;
+            }
+            
+            .hamburger::before {
+                top: -8px;
+            }
+            
+            .hamburger::after {
+                top: 8px;
+            }
+            
+            /* Transformar em X quando aberto */
+            .mobile-menu-button.open .hamburger {
+                background: transparent;
+            }
+            
+            .mobile-menu-button.open .hamburger::before {
+                top: 0;
+                transform: rotate(45deg);
+            }
+            
+            .mobile-menu-button.open .hamburger::after {
+                top: 0;
+                transform: rotate(-45deg);
+            }
+            
+            /* Overlay escuro */
+            .menu-overlay {
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 9998;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease;
+            }
+            
+            .menu-overlay.open {
+                opacity: 1;
+                pointer-events: auto;
+            }
+            
+            /* Menu lateral */
+            .mobile-menu {
+                display: block;
+                position: fixed;
+                top: 0;
+                right: -300px;
+                width: 280px;
+                height: 100%;
+                background: var(--borgonha-profundo);
+                z-index: 9999;
+                overflow-y: auto;
+                transition: right 0.3s ease;
+                padding: 80px 20px 20px 20px;
+                box-shadow: -4px 0 12px rgba(0,0,0,0.2);
+            }
+            
+            .mobile-menu.open {
+                right: 0;
+            }
+            
+            .mobile-menu nav ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            
+            .mobile-menu nav li {
+                margin-bottom: 0.5rem;
+            }
+            
+            .mobile-menu nav a {
+                display: block;
+                color: rgba(255, 255, 255, 0.9);
+                text-decoration: none;
+                padding: 12px 16px;
+                border-radius: 6px;
+                font-size: 0.95rem;
+                transition: all 0.3s ease;
+            }
+            
+            .mobile-menu nav a:hover,
+            .mobile-menu nav a:active {
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+            }
+            
+            /* ===== FIM MENU MOBILE ===== */
+            
+            /* Layout mobile: sidebar vira header compacto */
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: auto;
+                padding: 1rem;
+                z-index: 1000;
+                overflow-y: visible;
+                box-sizing: border-box;
+            }
+            
+            .sidebar-logo {
+                border-bottom: none;
+                padding-bottom: 0;
+                margin-bottom: 0;
+            }
+            
+            .sidebar-logo h1 {
+                font-size: 1.2rem;
+                margin-bottom: 0;
+            }
+            
+            .sidebar-logo p {
+                display: none;
+            }
+            
+            /* Esconder navegação em mobile */
+            .sidebar-nav {
+                display: none;
+            }
+            
+            /* Main content sem margem lateral */
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+                padding-top: 100px;
+            }
+            
+            /* Títulos menores */
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section-header p {
+                font-size: 0.9rem;
+            }
+            
+            /* Cards menos padding */
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .card h3 {
+                font-size: 1.3rem;
+            }
+            
+            /* Color grid: 1 coluna */
+            .color-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1rem;
+            }
+            
+            /* Qualquer grid com minmax vira coluna única */
+            [style*="grid-template-columns"][style*="minmax"] {
+                grid-template-columns: 1fr !important;
+            }
+            
+            /* Botões full width */
+            button,
+            a[download] {
+                width: 100% !important;
+            }
+            
+            /* Pre/code scroll horizontal */
+            pre {
+                overflow-x: auto;
+                font-size: 0.8rem !important;
+                white-space: pre-wrap;
+                word-wrap: break-word;
+            }
+            
+            /* Forçar todos divs a respeitarem largura */
+            div, section, article {
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+            
+            /* Elementos inline com padding/margin */
+            div[style] {
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            
+            /* Imagens sempre contidas */
+            img {
+                max-width: 100% !important;
+                height: auto !important;
+                display: block;
+            }
+            
+            /* Cards e elementos com padding */
+            .card, 
+            div[style*="padding"] {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+            
+            /* Botão copiar reposicionado */
+            button[onclick^="copiarTexto"] {
+                position: static !important;
+                margin-top: 1rem;
+                width: 100% !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* Telas muito pequenas - reforçar contenção */
+            * {
+                max-width: 100% !important;
+            }
+            
+            html, body {
+                overflow-x: hidden !important;
+                width: 100%;
+            }
+            
+            .main-content {
+                padding: 0.75rem;
+                padding-top: 90px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            
+            .section-header h2 {
+                font-size: 1.5rem;
+                word-wrap: break-word;
+            }
+            
+            .card {
+                padding: 1rem;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            
+            .card h3 {
+                font-size: 1.1rem;
+                word-wrap: break-word;
+            }
+            
+            .sidebar {
+                padding: 0.75rem;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            
+            .sidebar-logo h1 {
+                font-size: 1rem;
+                word-wrap: break-word;
+            }
+            
+            pre {
+                font-size: 0.75rem !important;
+                overflow-x: auto;
+                word-wrap: break-word;
+                white-space: pre-wrap;
+            }
+            
+            /* Forçar divs com estilos inline */
+            div[style*="width"],
+            div[style*="max-width"] {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu Mobile -->
+    <button class="mobile-menu-button" onclick="toggleMobileMenu()" aria-label="Menu">
+        <div class="hamburger"></div>
+    </button>
+    
+    <!-- Overlay escuro -->
+    <div class="menu-overlay" id="menu-overlay" onclick="toggleMobileMenu()"></div>
+    
+    <!-- Menu lateral mobile -->
+    <div class="mobile-menu" id="mobile-menu">
+        <nav>
+            <ul>
+                <li><a href="#essencia" onclick="closeMobileMenu()">1. Essência da Marca</a></li>
+                <li><a href="#arquetipal" onclick="closeMobileMenu()">2. Identidade Arquetipal</a></li>
+                <li><a href="#disc" onclick="closeMobileMenu()">3. Perfil Comportamental</a></li>
+                <li><a href="#posicionamento" onclick="closeMobileMenu()">4. Posicionamento</a></li>
+                <li><a href="#visual" onclick="closeMobileMenu()">5. Identidade Visual</a></li>
+                <li><a href="#cores" onclick="closeMobileMenu()">6. Sistema de Cores</a></li>
+                <li><a href="#tipografia" onclick="closeMobileMenu()">7. Tipografia</a></li>
+                <li><a href="#tom" onclick="closeMobileMenu()">8. Tom de Voz</a></li>
+                <li><a href="#vocabulario" onclick="closeMobileMenu()">9. Vocabulário</a></li>
+                <li><a href="#exemplos-praticos" onclick="closeMobileMenu()">📋 Exemplos Práticos</a></li>
+                <li><a href="#aplicacoes" onclick="closeMobileMenu()">10. Aplicações</a></li>
+                <li><a href="#manual" onclick="closeMobileMenu()">11. Manual de Uso</a></li>
+            </ul>
+        </nav>
+    </div>
+    
+    <div class="brandbook-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-logo">
+                <h1>BRANDBOOK</h1>
+                <p>Dra. Carine Petry v2.0</p>
+            </div>
+            
+            <div class="sidebar-nav">
+                <ul>
+                    <li><a href="#essencia">1. Essência da Marca</a></li>
+                    <li><a href="#arquetipal">2. Identidade Arquetipal</a></li>
+                    <li><a href="#disc">3. Perfil Comportamental</a></li>
+                    <li><a href="#posicionamento">4. Posicionamento</a></li>
+                    <li><a href="#visual">5. Identidade Visual</a></li>
+                    <li><a href="#cores">6. Sistema de Cores</a></li>
+                    <li><a href="#tipografia">7. Tipografia</a></li>
+                    <li><a href="#tom">8. Tom de Voz</a></li>
+                    <li><a href="#vocabulario">9. Vocabulário de Marca</a></li>
+                    <li><a href="#aplicacoes">10. Aplicações Práticas</a></li>
+                    <li><a href="#manual">11. Manual de Uso do Logo</a></li>
+                </ul>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header>
+                <h1>BRANDBOOK OFICIAL</h1>
+                <p style="font-size: 1.2rem; color: var(--magenta-vibrante); font-family: var(--font-display);">
+                    Dra. Carine Petry · Investigação Clínica de Alta Complexidade
+                </p>
+                <p style="color: var(--cinza-medio); font-size: 0.9rem;">
+                    Versão 2.0 · Abril 2026 · Documento Confidencial
+                </p>
+            </header>
+            
+            <!-- Seção 1: Essência da Marca -->
+            <section id="essencia">
+                <div class="section-header">
+                    <h2>1. ESSÊNCIA DA MARCA</h2>
+                    <p>Fundamentos estratégicos que definem a identidade da Dra. Carine Petry</p>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>PROPÓSITO</h3>
+                    <p>Elevar o padrão da medicina investigativa através da combinação de <strong>rigor técnico</strong>, <strong>investigação profunda</strong> e <strong>orientação humanizada</strong>, oferecendo diagnósticos e direcionamentos para casos complexos que outros médicos não conseguiram resolver.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>VISÃO</h3>
+                    <p>Ser referência nacional em investigação clínica de alta complexidade, reconhecida pela excelência técnica em condições raras e subdiagnosticadas (SAM, SED, Covid Longa), pelo posicionamento ético inabalável e pela capacidade de traduzir complexidade médica em orientação clara.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>MISSÃO</h3>
+                    <p>Oferecer investigação clínica aprofundada para casos complexos, com especialização em Síndrome de Ativação de Mastócitos (SAM), Síndrome de Ehlers-Danlos (SED) e sequelas de Covid Longa, combinando expertise técnica, princípios éticos rigorosos e comunicação acessível sem simplificação.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>VALORES FUNDAMENTAIS</h3>
+                    <ul>
+                        <li><strong>Investigação Profunda:</strong> Consultas longas, anamnese detalhada, correlação de sintomas. Profundidade antes de resposta rápida.</li>
+                        <li><strong>Rigor Técnico:</strong> Diagnósticos baseados em evidência científica sólida e atualização contínua em condições raras.</li>
+                        <li><strong>Princípios Inegociáveis:</strong> Ética médica e transparência acima de conveniências.</li>
+                        <li><strong>Liderança com Empatia:</strong> Autoridade clínica com acolhimento genuíno.</li>
+                        <li><strong>Clareza sem Simplificação:</strong> Tradução precisa de complexidade técnica.</li>
+                        <li><strong>Orientação de Trajetória:</strong> Direcionar quando necessário — saber quando encaminhar é parte da expertise.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Seção 2: Identidade Arquetipal -->
+            <section id="arquetipal">
+                <div class="section-header">
+                    <h2>2. IDENTIDADE ARQUETIPAL</h2>
+                    <p>Análise B.AKKA dos arquétipos que moldam a personalidade da marca</p>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>PRIMÁRIO: REGENTE (29%)</h3>
+                    <p><span class="badge">Liderança</span><span class="badge">Estratégia</span><span class="badge">Autoridade</span></p>
+                    <p><strong>Manifestação:</strong> Posicionamento como autoridade clínica em condições complexas. Capacidade de orientar trajetórias investigativas. Organização, método e confiança para decisões difíceis.</p>
+                    <p><em>"Eu investigo. Eu oriento. Eu assumo a responsabilidade de buscar a causa raiz."</em></p>
+                </div>
+                
+                <div class="card">
+                    <h3>SECUNDÁRIO: IDEALISTA (17%)</h3>
+                    <p><span class="badge secondary">Princípios</span><span class="badge secondary">Visão</span><span class="badge secondary">Perfeccionismo</span></p>
+                    <p><strong>Manifestação:</strong> Padrões éticos inquebráveis. Busca por diagnósticos corretos (nunca convenientes). Perfeccionismo investigativo.</p>
+                    <p><em>"Não faço concessões quando o assunto é diagnóstico. Existe um jeito certo de investigar."</em></p>
+                </div>
+                
+                <div class="card">
+                    <h3>TERCIÁRIO: ALTRUÍSTA (15%)</h3>
+                    <p><span class="badge secondary">Empatia</span><span class="badge secondary">Cuidado</span><span class="badge secondary">Serviço</span></p>
+                    <p><strong>Manifestação:</strong> Acolhimento a pacientes descredibilizados. Escuta ativa. Medicina centrada em pessoas com trajetórias difíceis.</p>
+                    <p><em>"Você não é 'frescura'. Você não é 'ansiedade'. Você merece investigação real."</em></p>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>TENSÃO CRIATIVA</h3>
+                    <p style="font-family: var(--font-display); font-size: 1.3rem; color: var(--magenta-vibrante);">
+                        "Liderança sem abandonar princípios"
+                    </p>
+                    <p>A marca existe na interseção entre autoridade investigativa, perfeccionismo diagnóstico e empatia com pacientes difíceis.</p>
+                </div>
+            </section>
+            
+            <!-- Seção 3: Perfil DISC -->
+            <section id="disc">
+                <div class="section-header">
+                    <h2>3. PERFIL COMPORTAMENTAL</h2>
+                    <p>Análise DISC - Perfil DI dominante</p>
+                </div>
+                
+                <div class="card">
+                    <h3>GRÁFICO NATURAL</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Dimensão</th>
+                                <th>Score</th>
+                                <th>Nível</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>D (Dominância)</strong></td>
+                                <td>76</td>
+                                <td>ALTO</td>
+                            </tr>
+                            <tr>
+                                <td><strong>I (Influência)</strong></td>
+                                <td>57</td>
+                                <td>MÉDIO-ALTO</td>
+                            </tr>
+                            <tr>
+                                <td><strong>S (Estabilidade)</strong></td>
+                                <td>46</td>
+                                <td>MÉDIO</td>
+                            </tr>
+                            <tr>
+                                <td><strong>C (Conformidade)</strong></td>
+                                <td>21</td>
+                                <td>BAIXO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>IMPLICAÇÕES PARA A COMUNICAÇÃO</h3>
+                    <ul>
+                        <li><strong>Tom assertivo</strong> (especialmente ao validar sintomas reais)</li>
+                        <li><strong>Mensagens diretas</strong> (sem rodeios sobre necessidade de investigação)</li>
+                        <li><strong>Posicionamento forte</strong> (opiniões claras sobre SAM/SED/Covid Longa)</li>
+                        <li><strong>Energia</strong> (presença vibrante, não apática)</li>
+                        <li><strong>Confiança técnica</strong> (segurança em áreas de expertise)</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Seção 4: Posicionamento -->
+            <section id="posicionamento">
+                <div class="section-header">
+                    <h2>4. POSICIONAMENTO ESTRATÉGICO</h2>
+                    <p>Definição clara de território e diferenciação competitiva</p>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>DADOS OFICIAIS</h3>
+                    <p><strong>Nome:</strong> Dra. Carine Petry</p>
+                    <p><strong>CRM:</strong> CRM-DF 15342</p>
+                    <p><strong>RQE:</strong> 16243 / 12865</p>
+                    <p><strong>Especialidade Oficial:</strong> Medicina do Sono</p>
+                    <p><strong>Áreas de Expertise Atual:</strong> SAM · SED · Covid Longa</p>
+                    <p><strong>Abordagem:</strong> Investigação Clínica de Alta Complexidade</p>
+                </div>
+                
+                <div class="card">
+                    <h3>TAGLINE PRINCIPAL</h3>
+                    <p style="font-family: var(--font-display); font-size: 1.8rem; color: var(--borgonha-profundo); text-align: center; padding: 1rem 0;">
+                        "Investigação Clínica para Casos que Outros Médicos Não Resolveram"
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <h3>TAGLINES COMPLEMENTARES</h3>
+                    <ul>
+                        <li><strong>Técnica/Científica:</strong> "Profundidade antes de resposta"</li>
+                        <li><strong>Emocional/Pacientes:</strong> "Quando o diagnóstico exige mais do que 15 minutos"</li>
+                        <li><strong>Institucional:</strong> "Referência nacional em SAM, SED e Covid Longa"</li>
+                    </ul>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>DIFERENCIAÇÃO COMPETITIVA</h3>
+                    <ol>
+                        <li>Especialização rara em SAM/SED/Covid Longa (poucos médicos dominam)</li>
+                        <li>Abordagem investigativa vs "tratamentista" (busca causa raiz)</li>
+                        <li>Consultas longas (1h+ vs 15min padrão)</li>
+                        <li>Disposição para dizer "não é minha área, mas sei quem pode ajudar"</li>
+                        <li>Validação de sintomas reais vs descredibilização</li>
+                    </ol>
+                </div>
+            </section>
+            
+            <!-- Seção 5: Identidade Visual -->
+            <section id="visual">
+                <div class="section-header">
+                    <h2>5. IDENTIDADE VISUAL</h2>
+                    <p>Sistema de marca centrado no monograma CP</p>
+                </div>
+                
+                <div style="background: white; padding: 3rem; border-radius: 8px; text-align: center; margin: 2rem 0;">
+                    <img src="https://res.cloudinary.com/dlzrfhwin/image/upload/v1775923045/logo_principal_completo_vvzn8v.png" alt="Logo Principal Dra. Carine Petry" style="max-width: 600px; width: 100%; height: auto;">
+                    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #E5E5E5;">
+                        <p style="font-size: 0.9rem; color: var(--cinza-medio); margin: 0.25rem 0;"><strong>Arquivo:</strong> logo_principal_completo.png</p>
+                        <p style="font-size: 0.9rem; color: var(--cinza-medio); margin: 0.25rem 0;"><strong>Formatos:</strong> SVG · PNG · PDF · JPG</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>VERSÕES DO LOGO</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                        <div style="text-align: center;">
+                            <div style="background: #FFF9FB; padding: 2rem; border-radius: 8px; min-height: 150px; display: flex; align-items: center; justify-content: center;">
+                                <img src="https://res.cloudinary.com/dlzrfhwin/image/upload/v1775923045/logo_principal_completo_vvzn8v.png" alt="Logo Colorido" style="max-width: 200px; width: 100%; height: auto;">
+                            </div>
+                            <p style="margin-top: 1rem; font-weight: 600; color: var(--borgonha-profundo);">V1: Principal (Colorida)</p>
+                            <p style="font-size: 0.85rem; color: var(--cinza-medio); margin-bottom: 0.75rem;">Site, Instagram, materiais premium</p>
+                            <a href="https://res.cloudinary.com/dlzrfhwin/image/upload/v1775923045/logo_principal_completo_vvzn8v.png" download="logo_principal_completo.png" style="display: block; background: var(--magenta-vibrante); color: white; text-decoration: none; padding: 0.5rem 1.5rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">
+                                📥 BAIXAR PNG
+                            </a>
+                        </div>
+                        
+                        <div style="text-align: center;">
+                            <div style="background: white; padding: 2rem; border-radius: 8px; border: 1px solid #E5E5E5; min-height: 150px; display: flex; align-items: center; justify-content: center;">
+                                <img src="https://res.cloudinary.com/dlzrfhwin/image/upload/v1775923045/logo_v2_institucional_pb_jzdtn2.png" alt="Logo P&B" style="max-width: 200px; width: 100%; height: auto;">
+                            </div>
+                            <p style="margin-top: 1rem; font-weight: 600; color: var(--borgonha-profundo);">V2: Institucional (P&B)</p>
+                            <p style="font-size: 0.85rem; color: var(--cinza-medio); margin-bottom: 0.75rem;">Receituário, documentos oficiais</p>
+                            <a href="https://res.cloudinary.com/dlzrfhwin/image/upload/v1775923045/logo_v2_institucional_pb_jzdtn2.png" download="logo_v2_institucional_pb.png" style="display: block; background: var(--magenta-vibrante); color: white; text-decoration: none; padding: 0.5rem 1.5rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">
+                                📥 BAIXAR PNG
+                            </a>
+                        </div>
+                        
+                        <div style="text-align: center;">
+                            <div style="background: #FFF9FB; padding: 2rem; border-radius: 8px; min-height: 150px; display: flex; align-items: center; justify-content: center;">
+                                <img src="https://res.cloudinary.com/dlzrfhwin/image/upload/v1775923046/logo_v3_icon_colorido_trt4ky.png" alt="Logo Ícone" style="max-width: 120px; width: 100%; height: auto;">
+                            </div>
+                            <p style="margin-top: 1rem; font-weight: 600; color: var(--borgonha-profundo);">V3: Compacta (Ícone)</p>
+                            <p style="font-size: 0.85rem; color: var(--cinza-medio); margin-bottom: 0.75rem;">Favicon, app icon, WhatsApp</p>
+                            <a href="https://res.cloudinary.com/dlzrfhwin/image/upload/v1775923046/logo_v3_icon_colorido_trt4ky.png" download="logo_v3_icon_colorido.png" style="display: block; background: var(--magenta-vibrante); color: white; text-decoration: none; padding: 0.5rem 1.5rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">
+                                📥 BAIXAR PNG
+                            </a>
+                        </div>
+                        
+                        <div style="text-align: center;">
+                            <div style="background: #1A1A1A; padding: 2rem; border-radius: 8px; min-height: 150px; display: flex; align-items: center; justify-content: center;">
+                                <img src="https://res.cloudinary.com/dlzrfhwin/image/upload/v1775923046/logo_v4_negativo_tvlmkx.png" alt="Logo Negativo" style="max-width: 200px; width: 100%; height: auto;">
+                            </div>
+                            <p style="margin-top: 1rem; font-weight: 600; color: var(--borgonha-profundo);">V4: Negativa (Fundos Escuros)</p>
+                            <p style="font-size: 0.85rem; color: var(--cinza-medio); margin-bottom: 0.75rem;">Dark mode, materiais especiais</p>
+                            <a href="https://res.cloudinary.com/dlzrfhwin/image/upload/v1775923046/logo_v4_negativo_tvlmkx.png" download="logo_v4_negativo.png" style="display: block; background: var(--magenta-vibrante); color: white; text-decoration: none; padding: 0.5rem 1.5rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">
+                                📥 BAIXAR PNG
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>CONCEITO ESTRATÉGICO</h3>
+                    <p>O monograma CP é uma <strong>declaração visual de exclusividade e precisão investigativa</strong>. Comunica:</p>
+                    <ul>
+                        <li><strong>Personalização</strong> - Medicina centrada na individualidade</li>
+                        <li><strong>Memorabilidade</strong> - Forma distintiva facilmente reconhecível</li>
+                        <li><strong>Precisão Geométrica</strong> - Reflexo da meticulosidade investigativa</li>
+                        <li><strong>Atemporalidade</strong> - Design que permanece relevante</li>
+                        <li><strong>Diferenciação</strong> - Foge de clichês médicos</li>
+                    </ul>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>METÁFORA VISUAL</h3>
+                    <p style="font-family: var(--font-display); font-size: 1.3rem; color: var(--magenta-vibrante);">
+                        "Selo de Investigação Profunda"
+                    </p>
+                    <p>O monograma funciona como certificado visual de rigor investigativo. Não é apenas identificação — é validação de padrão elevado.</p>
+                </div>
+            </section>
+            
+            <!-- Seção 6: Sistema de Cores -->
+            <section id="cores">
+                <div class="section-header">
+                    <h2>6. SISTEMA DE CORES</h2>
+                    <p>Paleta Borgonha & Creme - Quiet Luxury</p>
+                </div>
+                
+                <div class="color-grid">
+                    <div class="color-card">
+                        <div class="color-sample" style="background: #4A1942;"></div>
+                        <div class="color-info">
+                            <h4>Borgonha Profundo</h4>
+                            <p><strong>HEX:</strong> #4A1942</p>
+                            <p><strong>RGB:</strong> 74, 25, 66</p>
+                            <p><strong>CMYK:</strong> 0, 66, 11, 71</p>
+                            <p><strong>USO:</strong> Monograma C, títulos, autoridade</p>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-sample" style="background: #9D174D;"></div>
+                        <div class="color-info">
+                            <h4>Magenta Vibrante</h4>
+                            <p><strong>HEX:</strong> #9D174D</p>
+                            <p><strong>RGB:</strong> 157, 23, 77</p>
+                            <p><strong>CMYK:</strong> 0, 85, 51, 38</p>
+                            <p><strong>USO:</strong> Monograma P, destaques, CTAs</p>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-sample" style="background: #FFF9FB;"></div>
+                        <div class="color-info">
+                            <h4>Creme Luminoso</h4>
+                            <p><strong>HEX:</strong> #FFF9FB</p>
+                            <p><strong>RGB:</strong> 255, 249, 251</p>
+                            <p><strong>CMYK:</strong> 0, 2, 2, 0</p>
+                            <p><strong>USO:</strong> Fundos principais, respiro</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PALETA EXPANDIDA EM HTML/CSS -->
+                <div class="card" style="padding: 0; overflow: hidden; margin-top: 2rem;">
+                    <!-- Header -->
+                    <div style="background: var(--borgonha-profundo); padding: 2rem; text-align: center;">
+                        <h3 style="font-family: var(--font-display); font-size: 2rem; color: white; margin: 0;">PALETA EXPANDIDA COMPLETA</h3>
+                        <p style="color: var(--creme-luminoso); margin-top: 0.5rem; font-size: 0.95rem;">Escalas de Borgonha, Magenta e Neutros</p>
+                    </div>
+                    
+                    <!-- Borgonha Scale -->
+                    <div style="padding: 2rem; background: white;">
+                        <h4 style="color: var(--borgonha-profundo); margin-bottom: 1.5rem; font-size: 1.2rem;">ESCALA BORGONHA</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                            <div>
+                                <div style="background: #2D0F28; height: 120px; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+                                <p style="font-weight: 600; color: #4A4A4A; margin-bottom: 0.25rem;">Borgonha Dark</p>
+                                <p style="font-family: monospace; font-size: 0.9rem; color: #9E9E9E; margin-bottom: 0.25rem;">#2D0F28</p>
+                                <p style="font-size: 0.85rem; color: #9E9E9E;">Títulos principais</p>
+                            </div>
+                            <div>
+                                <div style="background: #4A1942; height: 120px; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+                                <p style="font-weight: 600; color: #4A4A4A; margin-bottom: 0.25rem;">Borgonha Profundo</p>
+                                <p style="font-family: monospace; font-size: 0.9rem; color: #9E9E9E; margin-bottom: 0.25rem;">#4A1942</p>
+                                <p style="font-size: 0.85rem; color: #9E9E9E;">Monograma C, autoridade</p>
+                            </div>
+                            <div>
+                                <div style="background: #6B2861; height: 120px; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+                                <p style="font-weight: 600; color: #4A4A4A; margin-bottom: 0.25rem;">Borgonha Médio</p>
+                                <p style="font-family: monospace; font-size: 0.9rem; color: #9E9E9E; margin-bottom: 0.25rem;">#6B2861</p>
+                                <p style="font-size: 0.85rem; color: #9E9E9E;">Subtítulos</p>
+                            </div>
+                            <div>
+                                <div style="background: #8B3A7F; height: 120px; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+                                <p style="font-weight: 600; color: #4A4A4A; margin-bottom: 0.25rem;">Borgonha Claro</p>
+                                <p style="font-family: monospace; font-size: 0.9rem; color: #9E9E9E; margin-bottom: 0.25rem;">#8B3A7F</p>
+                                <p style="font-size: 0.85rem; color: #9E9E9E;">Destaques leves</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Magenta Scale -->
+                    <div style="padding: 2rem; background: #FFF9FB;">
+                        <h4 style="color: var(--magenta-vibrante); margin-bottom: 1.5rem; font-size: 1.2rem;">ESCALA MAGENTA</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                            <div>
+                                <div style="background: #7D1450; height: 120px; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+                                <p style="font-weight: 600; color: #4A4A4A; margin-bottom: 0.25rem;">Magenta Dark</p>
+                                <p style="font-family: monospace; font-size: 0.9rem; color: #9E9E9E; margin-bottom: 0.25rem;">#7D1450</p>
+                                <p style="font-size: 0.85rem; color: #9E9E9E;">Fundos escuros</p>
+                            </div>
+                            <div>
+                                <div style="background: #9D174D; height: 120px; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+                                <p style="font-weight: 600; color: #4A4A4A; margin-bottom: 0.25rem;">Magenta Vibrante</p>
+                                <p style="font-family: monospace; font-size: 0.9rem; color: #9E9E9E; margin-bottom: 0.25rem;">#9D174D</p>
+                                <p style="font-size: 0.85rem; color: #9E9E9E;">Monograma P, CTAs</p>
+                            </div>
+                            <div>
+                                <div style="background: #C71F5D; height: 120px; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+                                <p style="font-weight: 600; color: #4A4A4A; margin-bottom: 0.25rem;">Magenta Médio</p>
+                                <p style="font-family: monospace; font-size: 0.9rem; color: #9E9E9E; margin-bottom: 0.25rem;">#C71F5D</p>
+                                <p style="font-size: 0.85rem; color: #9E9E9E;">Destaques</p>
+                            </div>
+                            <div>
+                                <div style="background: #E6286E; height: 120px; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+                                <p style="font-weight: 600; color: #4A4A4A; margin-bottom: 0.25rem;">Magenta Claro</p>
+                                <p style="font-family: monospace; font-size: 0.9rem; color: #9E9E9E; margin-bottom: 0.25rem;">#E6286E</p>
+                                <p style="font-size: 0.85rem; color: #9E9E9E;">Hover states</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Neutros Scale -->
+                    <div style="padding: 2rem; background: white; border-top: 1px solid #E5E5E5;">
+                        <h4 style="color: var(--borgonha-profundo); margin-bottom: 1.5rem; font-size: 1.2rem;">ESCALA NEUTROS</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                            <div>
+                                <div style="background: #FFF9FB; height: 120px; border-radius: 8px; margin-bottom: 1rem; border: 2px solid #E5E5E5;"></div>
+                                <p style="font-weight: 600; color: #4A4A4A; margin-bottom: 0.25rem;">Creme Luminoso</p>
+                                <p style="font-family: monospace; font-size: 0.9rem; color: #9E9E9E; margin-bottom: 0.25rem;">#FFF9FB</p>
+                                <p style="font-size: 0.85rem; color: #9E9E9E;">Fundos principais</p>
+                            </div>
+                            <div>
+                                <div style="background: #E5E5E5; height: 120px; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05);"></div>
+                                <p style="font-weight: 600; color: #4A4A4A; margin-bottom: 0.25rem;">Cinza Claro</p>
+                                <p style="font-family: monospace; font-size: 0.9rem; color: #9E9E9E; margin-bottom: 0.25rem;">#E5E5E5</p>
+                                <p style="font-size: 0.85rem; color: #9E9E9E;">Bordas, separadores</p>
+                            </div>
+                            <div>
+                                <div style="background: #9E9E9E; height: 120px; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+                                <p style="font-weight: 600; color: #4A4A4A; margin-bottom: 0.25rem;">Cinza Médio</p>
+                                <p style="font-family: monospace; font-size: 0.9rem; color: #9E9E9E; margin-bottom: 0.25rem;">#9E9E9E</p>
+                                <p style="font-size: 0.85rem; color: #9E9E9E;">Textos secundários</p>
+                            </div>
+                            <div>
+                                <div style="background: #4A4A4A; height: 120px; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+                                <p style="font-weight: 600; color: #4A4A4A; margin-bottom: 0.25rem;">Cinza Escuro</p>
+                                <p style="font-family: monospace; font-size: 0.9rem; color: #9E9E9E; margin-bottom: 0.25rem;">#4A4A4A</p>
+                                <p style="font-size: 0.85rem; color: #9E9E9E;">Textos principais</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Seção 7: Tipografia -->
+            <section id="tipografia">
+                <div class="section-header">
+                    <h2>7. TIPOGRAFIA</h2>
+                    <p>Sistema dual: Cormorant Garamond (Display) + Inter (Body)</p>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>📥 DOWNLOAD DAS FONTES</h3>
+                    <p style="margin-bottom: 1.5rem;">Fontes disponíveis gratuitamente no Google Fonts:</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                        <div style="background: #FFF9FB; padding: 1.5rem; border-radius: 8px; border: 2px solid var(--borgonha-profundo);">
+                            <h4 style="color: var(--borgonha-profundo); margin-bottom: 0.5rem; font-family: var(--font-display); font-size: 1.5rem;">Cormorant Garamond</h4>
+                            <p style="font-size: 0.9rem; color: var(--cinza-medio); margin-bottom: 1rem;">Display · Títulos · Autoridade</p>
+                            <a href="https://fonts.google.com/specimen/Cormorant+Garamond" target="_blank" style="display: block; background: var(--borgonha-profundo); color: white; text-decoration: none; padding: 0.75rem 1.5rem; border-radius: 4px; text-align: center; font-weight: 600; font-size: 0.9rem;">
+                                📥 BAIXAR NO GOOGLE FONTS
+                            </a>
+                            <p style="font-size: 0.8rem; color: var(--cinza-medio); margin-top: 0.75rem;">Pesos: Light (300), Regular (400), Medium (500), SemiBold (600)</p>
+                        </div>
+                        
+                        <div style="background: #FFF9FB; padding: 1.5rem; border-radius: 8px; border: 2px solid var(--magenta-vibrante);">
+                            <h4 style="color: var(--magenta-vibrante); margin-bottom: 0.5rem; font-family: var(--font-body); font-size: 1.5rem;">Inter</h4>
+                            <p style="font-size: 0.9rem; color: var(--cinza-medio); margin-bottom: 1rem;">Body · Textos · Legibilidade</p>
+                            <a href="https://fonts.google.com/specimen/Inter" target="_blank" style="display: block; background: var(--magenta-vibrante); color: white; text-decoration: none; padding: 0.75rem 1.5rem; border-radius: 4px; text-align: center; font-weight: 600; font-size: 0.9rem;">
+                                📥 BAIXAR NO GOOGLE FONTS
+                            </a>
+                            <p style="font-size: 0.8rem; color: var(--cinza-medio); margin-top: 0.75rem;">Pesos: Light (300), Regular (400), Medium (500), SemiBold (600), Bold (700)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 style="font-family: var(--font-display); font-size: 2.5rem; letter-spacing: 3px;">
+                        Cormorant Garamond
+                    </h3>
+                    <p><strong>Uso:</strong> Logotipo, títulos principais, materiais premium</p>
+                    <p><strong>Características:</strong> Serifa clássica moderna, autoridade, permanência</p>
+                    <p><strong>Pesos:</strong> Light (300), Regular (400), Medium (500), SemiBold (600)</p>
+                </div>
+                
+                <div class="card">
+                    <h3 style="font-family: var(--font-body); font-weight: 600;">
+                        Inter
+                    </h3>
+                    <p><strong>Uso:</strong> Textos corpo, navegação, interface, materiais digitais</p>
+                    <p><strong>Características:</strong> Sans humanista, legibilidade, neutralidade calorosa</p>
+                    <p><strong>Pesos:</strong> Light (300), Regular (400), Medium (500), SemiBold (600), Bold (700)</p>
+                </div>
+                
+                <!-- HIERARQUIA TIPOGRÁFICA EM HTML/CSS -->
+                <div class="card" style="padding: 0; overflow: hidden; margin-top: 2rem;">
+                    <!-- Header -->
+                    <div style="background: var(--borgonha-profundo); padding: 2rem; text-align: center;">
+                        <h3 style="font-family: var(--font-display); font-size: 2rem; color: white; margin: 0;">HIERARQUIA TIPOGRÁFICA COMPLETA</h3>
+                        <p style="color: var(--creme-luminoso); margin-top: 0.5rem; font-size: 0.95rem;">Desktop / Mobile / Print</p>
+                    </div>
+                    
+                    <div style="padding: 3rem 2rem; background: white;">
+                        <!-- H1 -->
+                        <div style="margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid #E5E5E5;">
+                            <h1 style="font-family: var(--font-display); font-size: 4rem; color: var(--borgonha-profundo); margin: 0 0 1rem 0; line-height: 1.2; font-weight: 400;">Investigação Clínica</h1>
+                            <p style="color: var(--cinza-medio); font-size: 0.9rem; margin: 0;">
+                                <strong>H1:</strong> Cormorant Garamond · 64pt Desktop / 48pt Mobile · Borgonha Profundo · Weight 400
+                            </p>
+                        </div>
+                        
+                        <!-- H2 -->
+                        <div style="margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid #E5E5E5;">
+                            <h2 style="font-family: var(--font-display); font-size: 3rem; color: var(--borgonha-profundo); margin: 0 0 1rem 0; line-height: 1.3; font-weight: 400;">Síndrome de Ativação de Mastócitos</h2>
+                            <p style="color: var(--cinza-medio); font-size: 0.9rem; margin: 0;">
+                                <strong>H2:</strong> Cormorant Garamond · 48pt Desktop / 36pt Mobile · Borgonha Profundo · Weight 400
+                            </p>
+                        </div>
+                        
+                        <!-- H3 -->
+                        <div style="margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid #E5E5E5;">
+                            <h3 style="font-family: var(--font-display); font-size: 2.25rem; color: var(--borgonha-profundo); margin: 0 0 1rem 0; line-height: 1.4; font-weight: 500;">Diagnóstico e Tratamento</h3>
+                            <p style="color: var(--cinza-medio); font-size: 0.9rem; margin: 0;">
+                                <strong>H3:</strong> Cormorant Garamond · 36pt Desktop / 28pt Mobile · Borgonha Profundo · Weight 500
+                            </p>
+                        </div>
+                        
+                        <!-- H4 -->
+                        <div style="margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid #E5E5E5;">
+                            <h4 style="font-family: var(--font-display); font-size: 1.75rem; color: var(--borgonha-profundo); margin: 0 0 1rem 0; line-height: 1.4; font-weight: 500;">Anamnese Detalhada</h4>
+                            <p style="color: var(--cinza-medio); font-size: 0.9rem; margin: 0;">
+                                <strong>H4:</strong> Cormorant Garamond · 28pt Desktop / 22pt Mobile · Borgonha Profundo · Weight 500
+                            </p>
+                        </div>
+                        
+                        <!-- Body -->
+                        <div style="margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid #E5E5E5;">
+                            <p style="font-family: var(--font-body); font-size: 1.125rem; color: var(--cinza-escuro); margin: 0 0 1rem 0; line-height: 1.6; font-weight: 400;">
+                                Medicina investigativa não é apenas pedir exames. É correlacionar sintomas aparentemente desconexos. É reconhecer padrões que outros não veem. É ter coragem para considerar diagnósticos raros.
+                            </p>
+                            <p style="color: var(--cinza-medio); font-size: 0.9rem; margin: 0;">
+                                <strong>Body:</strong> Inter · 18pt Desktop / 16pt Mobile · Cinza Escuro · Line height 1.6 · Weight 400
+                            </p>
+                        </div>
+                        
+                        <!-- Caption -->
+                        <div>
+                            <p style="font-family: var(--font-body); font-size: 0.875rem; color: var(--cinza-medio); margin: 0 0 1rem 0; line-height: 1.5; font-weight: 400;">
+                                CRM-DF 15342 | RQE 16243 | Referência em SAM/SED/Covid Longa
+                            </p>
+                            <p style="color: var(--cinza-medio); font-size: 0.9rem; margin: 0;">
+                                <strong>Caption:</strong> Inter · 14pt Desktop / 12pt Mobile · Cinza Médio · Metadados · Weight 400
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Seção 8: Tom de Voz -->
+            <section id="tom">
+                <div class="section-header">
+                    <h2>8. TOM DE VOZ</h2>
+                    <p>Autoridade investigativa com empatia validadora</p>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>PERSONALIDADE VOCAL</h3>
+                    <ul>
+                        <li><strong>Autoridade Investigativa sem Frieza</strong> - Expertise técnica sem jargão como barreira</li>
+                        <li><strong>Validação Empática</strong> - "Você não é frescura"</li>
+                        <li><strong>Diretividade com Acolhimento</strong> - Clara sobre necessidade de investigação</li>
+                        <li><strong>Princípios Inegociáveis</strong> - Não diagnostica sem investigar</li>
+                        <li><strong>Orientação de Trajetória</strong> - "Não sei, mas sei quem sabe"</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>PALAVRAS PROIBIDAS (CFM 2.336/2023)</h3>
+                    <p style="color: var(--magenta-vibrante);"><strong>NUNCA USAR:</strong></p>
+                    <ul>
+                        <li>Revolucionário</li>
+                        <li>Resultados garantidos / Cura (para condições crônicas)</li>
+                        <li>Transformação total</li>
+                        <li>Único no mercado / Exclusivo</li>
+                        <li>Milagre</li>
+                        <li>Simples / Fácil / Rápido (para diagnósticos complexos)</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>VOCABULÁRIO DE IMPACTO</h3>
+                    <p style="color: var(--borgonha-profundo);"><strong>USAR FREQUENTEMENTE:</strong></p>
+                    <p>Investigação · Profundidade · Rigor investigativo · Clareza diagnóstica · Evidência · Metodologia · Correlação clínica · Orientação de trajetória · Validação · Direcionamento · Condições raras · Subdiagnosticadas · Anamnese detalhada · Causa raiz · Multissistêmico</p>
+                </div>
+            </section>
+            
+            <!-- Seção 9: Vocabulário de Marca -->
+            <section id="vocabulario">
+                <div class="section-header">
+                    <h2>9. VOCABULÁRIO DE MARCA</h2>
+                    <p>Manifestos e assinaturas de comunicação</p>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>MANIFESTO 1: RACIONAL</h3>
+                    <p style="font-family: var(--font-display); font-size: 1.1rem; line-height: 1.8;">
+                        Medicina investigativa não é apenas pedir exames.<br>
+                        É correlacionar sintomas aparentemente desconexos.<br>
+                        É reconhecer padrões que outros não veem.<br>
+                        É ter coragem para considerar diagnósticos raros.<br><br>
+                        
+                        SAM. SED. Covid Longa.<br>
+                        Condições que 99% dos médicos não investigam.<br><br>
+                        
+                        Investigação real exige:<br>
+                        Tempo. Método. Conhecimento técnico.<br>
+                        E disposição para dizer "não sei, mas sei quem sabe".
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <h3>MANIFESTO 2: EMOCIONAL</h3>
+                    <p style="font-family: var(--font-display); font-size: 1.1rem; line-height: 1.8; color: var(--magenta-vibrante);">
+                        VOCÊ NÃO É "FRESCURA"
+                    </p>
+                    <p style="line-height: 1.8;">
+                        Quantos médicos você já consultou?<br>
+                        Quantas vezes ouviu "seus exames estão normais"?<br>
+                        Quantas vezes saiu sentindo que não foi levado a sério?<br><br>
+                        
+                        Seus sintomas são reais.<br>
+                        Não é ansiedade. Não é "coisa da sua cabeça".<br><br>
+                        
+                        Aqui, você será ouvido.<br>
+                        E sairá com direcionamento claro.
+                    </p>
+                </div>
+            </section>
+            
+            <!-- Seção 9.5: Exemplos Práticos com Dados Reais -->
+            <section id="exemplos-praticos" style="scroll-margin-top: 2rem;">
+                <div class="section-header">
+                    <h2>EXEMPLOS PRÁTICOS</h2>
+                    <p>Templates prontos com dados reais da Dra. Carine Petry</p>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>📧 ASSINATURA DE EMAIL PROFISSIONAL</h3>
+                    <div style="background: #f5f5f5; padding: 1.5rem; border-radius: 8px; position: relative;">
+                        <pre id="assinatura-email" style="margin: 0; font-size: 0.9rem; line-height: 1.6; white-space: pre-wrap;">Dra. Carine Petry
+Médica · CRM-DF 15342
+Referência em SAM/SED/Covid Longa
+Investigação Clínica de Alta Complexidade
+
+📞 (61) 3263-7721 | (61) 99272-1947
+📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7c1f1312081d08133c1f1d0e1512190c19080e05521f1311521e0e">[email&#160;protected]</a>
+🌐 carinepetry.com.br
+📍 Centro Médico Lucio Costa - Bloco I / T-56
+   SGAS 610/611 - Via L2 Sul
+   Brasília-DF, CEP 70200-700</pre>
+                        <button onclick="copiarTexto('assinatura-email', event)" style="position: absolute; top: 1rem; right: 1rem; background: var(--magenta-vibrante); color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">
+                            📋 COPIAR
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>📱 BIO INSTAGRAM</h3>
+                    <div style="background: #f5f5f5; padding: 1.5rem; border-radius: 8px; position: relative;">
+                        <pre id="bio-instagram" style="margin: 0; font-size: 0.9rem; line-height: 1.6; white-space: pre-wrap;">Dra. Carine Petry 👩🏼‍⚕️
+Médica · CRM-DF 15342
+Referência em SAM/SED/Covid Longa
+Investigação Clínica · Casos Complexos
+📍 Brasília-DF
+👇 Consultas e Mentorias Profissionais
+[Link]</pre>
+                        <button onclick="copiarTexto('bio-instagram', event)" style="position: absolute; top: 1rem; right: 1rem; background: var(--magenta-vibrante); color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">
+                            📋 COPIAR
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>💼 BIO LINKEDIN</h3>
+                    <div style="background: #f5f5f5; padding: 1.5rem; border-radius: 8px; position: relative;">
+                        <pre id="bio-linkedin" style="margin: 0; font-size: 0.9rem; line-height: 1.6; white-space: pre-wrap;">Médica (CRM-DF 15342) especializada em Investigação Clínica de Alta Complexidade.
+
+Referência nacional em:
+• Síndrome de Ativação de Mastócitos (SAM)
+• Síndrome de Ehlers-Danlos (SED)
+• Sequelas de Covid Longa
+
+Atendimento a casos complexos e subdiagnosticados. Consultas detalhadas com anamnese aprofundada e orientação de conduta fundamentada em evidência.
+
+Brasília-DF | carinepetry.com.br</pre>
+                        <button onclick="copiarTexto('bio-linkedin', event)" style="position: absolute; top: 1rem; right: 1rem; background: var(--magenta-vibrante); color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">
+                            📋 COPIAR
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>💳 CARTÃO DE VISITAS - FRENTE</h3>
+                    <div style="background: #FFF9FB; padding: 2rem; border-radius: 8px; text-align: center; border: 2px solid #E5E5E5;">
+                        <div style="font-family: var(--font-display); font-size: 1.8rem; color: var(--borgonha-profundo); margin-bottom: 0.5rem; letter-spacing: 2px;">
+                            [MONOGRAMA CP]
+                        </div>
+                        <div style="font-family: var(--font-display); font-size: 1.2rem; color: var(--borgonha-profundo); letter-spacing: 1px;">
+                            DRA. CARINE PETRY
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--cinza-escuro); margin-top: 0.5rem;">
+                            Médica · CRM-DF 15342
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--magenta-vibrante); margin-top: 0.25rem;">
+                            Referência em SAM/SED/Covid Longa
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>💳 CARTÃO DE VISITAS - VERSO</h3>
+                    <div style="background: white; padding: 2rem; border-radius: 8px; border: 2px solid #E5E5E5;">
+                        <div style="font-size: 0.85rem; color: var(--cinza-escuro); line-height: 1.8;">
+                            📞 (61) 3263-7721<br>
+                            📱 (61) 99272-1947<br>
+                            📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="11727e7f6570657e51727063787f7461746563683f727e7c3f7363">[email&#160;protected]</a><br>
+                            🌐 carinepetry.com.br<br>
+                            📍 Centro Médico Lucio Costa - Bloco I / T-56<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;SGAS 610/611 - Via L2 Sul<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;Brasília-DF, CEP 70200-700
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>📋 RECEITUÁRIO MÉDICO - CABEÇALHO</h3>
+                    <div style="background: white; padding: 2rem; border-radius: 8px; border: 2px solid #E5E5E5;">
+                        <div style="text-align: center; margin-bottom: 1rem;">
+                            <div style="font-family: var(--font-display); font-size: 1.2rem; color: var(--borgonha-profundo); margin-bottom: 0.25rem;">
+                                [LOGO P&B]
+                            </div>
+                        </div>
+                        <div style="text-align: center; font-size: 0.9rem; color: var(--cinza-escuro); line-height: 1.6;">
+                            <strong>DRA. CARINE PETRY</strong><br>
+                            Médica<br>
+                            CRM-DF 15342 | RQE 16243<br>
+                            Especialista em Medicina do Sono
+                        </div>
+                        <div style="text-align: center; font-size: 0.75rem; color: var(--cinza-medio); margin-top: 1rem; line-height: 1.6;">
+                            Centro Médico Lucio Costa - Bloco I / T-56<br>
+                            SGAS 610/611 - Via L2 Sul - Brasília-DF, CEP 70200-700<br>
+                            Tel: (61) 3263-7721 | (61) 99272-1947<br>
+                            Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4d2e2223392c39220d2e2c3f2423283d28393f34632e2220632f3f">[email&#160;protected]</a>
+                        </div>
+                        <div style="border-top: 2px solid var(--borgonha-profundo); margin-top: 1rem;"></div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>🌐 ASSINATURA PARA SITE</h3>
+                    <pre style="background: #f5f5f5; padding: 1.5rem; border-radius: 8px; overflow-x: auto; font-size: 0.9rem; line-height: 1.6;">
+<strong>VERSÃO INSTITUCIONAL (Documentos Oficiais):</strong>
+DRA. CARINE PETRY
+Médica
+CRM-DF 15342 | RQE 16243
+Especialista em Medicina do Sono
+
+<strong>VERSÃO ESTRATÉGICA (Site, Instagram, Marketing):</strong>
+DRA. CARINE PETRY
+Médica · CRM-DF 15342
+
+Referência em:
+Síndrome de Ativação de Mastócitos (SAM)
+Síndrome de Ehlers-Danlos (SED)
+Covid Longa
+
+Investigação Clínica de Alta Complexidade
+
+<strong>VERSÃO COMPACTA (Bio, Email, Cartão):</strong>
+Dra. Carine Petry
+Médica · CRM-DF 15342
+Referência em SAM/SED/Covid Longa
+Investigação Clínica · Diagnósticos Complexos</pre>
+                </div>
+            </section>
+            
+            <!-- Seção 10: Aplicações Práticas -->
+            <section id="aplicacoes">
+                <div class="section-header">
+                    <h2>10. APLICAÇÕES PRÁTICAS</h2>
+                    <p>Mockups e diretrizes de uso em diferentes mídias</p>
+                </div>
+                
+                <h3>PAPELARIA INSTITUCIONAL</h3>
+                
+                <!-- Cartão de Visitas -->
+                <div class="card">
+                    <h4 style="color: var(--borgonha-profundo); margin-bottom: 1rem;">💳 CARTÃO DE VISITAS</h4>
+                    <img src="https://res.cloudinary.com/dlzrfhwin/image/upload/v1776129668/Carta%CC%83o_de_Visita_-_CP_twp97i.png" alt="Cartão de Visitas Dra. Carine Petry" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <p style="margin-top: 1rem; color: var(--cinza-medio); font-size: 0.9rem;"><strong>Especificações:</strong> 9cm x 5cm · Supremo 300g · Laminação fosca</p>
+                </div>
+                
+                <!-- Receituário Médico -->
+                <div class="card">
+                    <h4 style="color: var(--borgonha-profundo); margin-bottom: 1rem;">📋 RECEITUÁRIO MÉDICO</h4>
+                    <img src="https://res.cloudinary.com/dlzrfhwin/image/upload/v1776129608/Receitua%CC%81rio_Me%CC%81dico_-_CP_hx0lhz.png" alt="Receituário Médico Dra. Carine Petry" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <p style="margin-top: 1rem; color: var(--cinza-medio); font-size: 0.9rem;"><strong>Especificações:</strong> A4 · Offset 90g · Impressão P&B</p>
+                </div>
+            </section>
+            
+            <!-- Seção 11: Manual de Uso -->
+            <section id="manual">
+                <div class="section-header">
+                    <h2>11. MANUAL DE USO DO LOGO</h2>
+                    <p>Diretrizes técnicas e regras de aplicação</p>
+                </div>
+                
+                <div class="card card-highlight">
+                    <h3>VERSÕES OFICIAIS</h3>
+                    <ol>
+                        <li><strong>Principal (Colorida)</strong> - Borgonha + Magenta sobre fundos claros</li>
+                        <li><strong>Institucional (P&B)</strong> - Preto sólido para receituário e documentos</li>
+                        <li><strong>Compacta (Ícone)</strong> - Só monograma CP para favicon e apps</li>
+                        <li><strong>Negativa (Fundo Escuro)</strong> - Branco/Creme sobre fundos escuros</li>
+                    </ol>
+                </div>
+                
+                <div class="image-placeholder">
+                    <div class="icon">📏</div>
+                    <h4>ÁREA DE PROTEÇÃO E ESPAÇAMENTO</h4>
+                    <p><strong>Arquivo:</strong> manual_logo_area_protecao.png</p>
+                    <p><strong>Regra:</strong> Margem mínima = Altura da letra "C" do monograma</p>
+                </div>
+                
+                <div class="card">
+                    <h3>TAMANHOS MÍNIMOS</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Contexto</th>
+                                <th>Versão Completa</th>
+                                <th>Versão Compacta</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Digital (Web/Apps)</td>
+                                <td>180px largura</td>
+                                <td>48px x 48px</td>
+                            </tr>
+                            <tr>
+                                <td>Impresso (Papel)</td>
+                                <td>4cm largura</td>
+                                <td>1cm x 1cm</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="image-placeholder">
+                    <div class="icon">✅</div>
+                    <h4>USOS CORRETOS</h4>
+                    <p><strong>Arquivo:</strong> manual_logo_usos_corretos.png</p>
+                    <p><strong>Conteúdo:</strong> Grid 3x3 mostrando aplicações aprovadas</p>
+                </div>
+                
+                <div class="image-placeholder">
+                    <div class="icon">❌</div>
+                    <h4>USOS INCORRETOS</h4>
+                    <p><strong>Arquivo:</strong> manual_logo_usos_incorretos.png</p>
+                    <p><strong>Conteúdo:</strong> Grid 3x3 mostrando o que NUNCA fazer</p>
+                </div>
+            </section>
+            
+            <!-- Footer -->
+            <footer style="margin-top: 5rem; padding-top: 2rem; border-top: 2px solid var(--cinza-claro);">
+                <p style="text-align: center; color: var(--cinza-medio); font-size: 0.9rem;">
+                    <strong>BRANDBOOK OFICIAL - DRA. CARINE PETRY</strong><br>
+                    Versão 2.0 · Abril 2026 · Documento Confidencial<br>
+                    Investigação Clínica de Alta Complexidade<br>
+                    <em style="font-family: var(--font-display);">Profundidade antes de resposta.</em>
+                </p>
+                
+                <a href="#" class="btn-download" style="display: block; text-align: center; margin: 2rem auto; max-width: 300px;">
+                    📥 BAIXAR BRANDBOOK COMPLETO
+                </a>
+            </footer>
+        </main>
+    </div>
+    
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Navegação ativa
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.q

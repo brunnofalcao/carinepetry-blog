@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Posts - Painel Admin</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --borgonha-profundo: #4A1942;
+            --magenta-vibrante: #9D174D;
+            --creme-suave: #FFF9FB;
+            --cinza-escuro: #1F1F1F;
+            --cinza-medio: #6B6B6B;
+            --cinza-claro: #E5E5E5;
+            --branco-puro: #FFFFFF;
+            --verde-sucesso: #10B981;
+            --azul-info: #3B82F6;
+            
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: var(--font-body);
+            background: var(--creme-suave);
+        }
+        
+        .editor-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .editor-main {
+            background: var(--branco-puro);
+            padding: 2.5rem;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+        
+        .editor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--cinza-claro);
+        }
+        
+        .editor-header h1 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--borgonha-profundo);
+        }
+        
+        .back-btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--creme-suave);
+            border: 2px solid var(--cinza-claro);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--cinza-escuro);
+        }
+        
+        .back-btn:hover {
+            background: var(--magenta-vibrante);
+            color: var(--branco-puro);
+            border-color: var(--magenta-vibrante);
+        }
+        
+        .form-section {
+            margin-bottom: 2rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--borgonha-profundo);
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--cinza-claro);
+            border-radius: 12px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--magenta-vibrante);
+            box-shadow: 0 0 0 4px rgba(157, 23, 77, 0.1);
+        }
+        
+        .title-input {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 500;
+        }
+        
+        .editor-toolbar {
+            background: var(--creme-suave);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .toolbar-btn {
+            padding: 0.6rem 1rem;
+            background: var(--branco-puro);
+            border: 1px solid var(--cinza-claro);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+        
+        .toolbar-btn:hover {
+            background: var(--magenta-vibrante);
+            color: var(--branco-puro);
+            border-color: var(--magenta-vibrante);
+        }
+        
+        .content-editor {
+            min-height: 500px;
+            padding: 1.5rem;
+            border: 2px solid var(--cinza-claro);
+            border-radius: 12px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            transition: all 0.3s ease;
+        }
+        
+        .content-editor:focus {
+            outline: none;
+            border-color: var(--magenta-vibrante);
+        }
+        
+        .excerpt-input {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        /* SIDEBAR */
+        .editor-sidebar {
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+        }
+        
+        .sidebar-section {
+            background: var(--branco-puro);
+            padding: 1.5rem;
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sidebar-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--borgonha-profundo);
+            margin-bottom: 1rem;
+        }
+        
+        .action-btn {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 12px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 0.8rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--borgonha-profundo), var(--magenta-vibrante));
+            color: var(--branco-puro);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(157, 23, 77, 0.3);
+        }
+        
+        .btn-secondary {
+            background: var(--creme-suave);
+            color: var(--cinza-escuro);
+            border: 2px solid var(--cinza-claro);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--cinza-claro);
+        }
+        
+        .btn-ai {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--branco-puro);
+        }
+        
+        .btn-ai:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+        
+        .category-select, .tags-input {
+            margin-bottom: 1rem;
+        }
+        
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .tag-item {
+            background: var(--magenta-vibrante);
+            color: var(--branco-puro);
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .tag-remove {
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .image-upload-area {
+            border: 2px dashed var(--cinza-claro);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .image-upload-area:hover {
+            border-color: var(--magenta-vibrante);
+            background: var(--creme-suave);
+        }
+        
+        .image-preview {
+            max-width: 100%;
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+        
+        .seo-preview {
+            background: var(--creme-suave);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+        
+        .seo-title {
+            color: #1a0dab;
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+        
+        .seo-url {
+            color: var(--verde-sucesso);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .seo-description {
+            color: var(--cinza-medio);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .ai-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .ai-modal.active {
+            display: flex;
+        }
+        
+        .ai-modal-content {
+            background: var(--branco-puro);
+            padding: 3rem;
+            border-radius: 25px;
+            max-width: 600px;
+            width: 90%;
+        }
+        
+        .ai-modal-header {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--borgonha-profundo);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .loading-spinner {
+            text-align: center;
+            font-size: 3rem;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 1024px) {
+            .editor-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="editor-layout">
+        <!-- MAIN EDITOR -->
+        <div class="editor-main">
+            <div class="editor-header">
+                <h1>✍️ Criar Novo Post</h1>
+                <a href="admin_dashboard.html" class="back-btn">← Voltar</a>
+            </div>
+            
+            <!-- TÍTULO -->
+            <div class="form-section">
+                <label class="form-label">Título do Post</label>
+                <input type="text" id="postTitle" class="form-input title-input" placeholder="Digite um título impactante...">
+            </div>
+            
+            <!-- EDITOR TOOLBAR -->
+            <div class="editor-toolbar">
+                <button class="toolbar-btn" onclick="formatText('bold')"><strong>B</strong></button>
+                <button class="toolbar-btn" onclick="formatText('italic')"><em>I</em></button>
+                <button class="toolbar-btn" onclick="formatText('insertUnorderedList')">• Lista</button>
+                <button class="toolbar-btn" onclick="formatText('formatBlock', 'h2')">H2</button>
+                <button class="toolbar-btn" onclick="formatText('formatBlock', 'h3')">H3</button>
+                <button class="toolbar-btn" onclick="insertLink()">🔗 Link</button>
+            </div>
+            
+            <!-- CONTENT EDITOR -->
+            <div class="form-section">
+                <label class="form-label">Conteúdo</label>
+                <div id="contentEditor" class="content-editor" contenteditable="true"></div>
+            </div>
+            
+            <!-- RESUMO -->
+            <div class="form-section">
+                <label class="form-label">Resumo (Opcional)</label>
+                <textarea id="postExcerpt" class="form-input excerpt-input" placeholder="Breve resumo do artigo..."></textarea>
+            </div>
+        </div>
+        
+        <!-- SIDEBAR -->
+        <div class="editor-sidebar">
+            <!-- AÇÕES -->
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Publicar</h3>
+                
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="status" value="published" checked>
+                        Publicado
+                    </label>
+                    <label>
+                        <input type="radio" name="status" value="draft">
+                        Rascunho
+                    </label>
+                </div>
+                
+                <button class="action-btn btn-primary" onclick="savePost()">💾 Salvar Post</button>
+                <button class="action-btn btn-ai" onclick="openAIModal()">🤖 Gerar com IA</button>
+                <button class="action-btn btn-secondary" onclick="previewPost()">👁️ Preview</button>
+            </div>
+            
+            <!-- CATEGORIA -->
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Categoria</h3>
+                <select id="category" class="form-input category-select">
+                    <option value="sam">SAM</option>
+                    <option value="sed">SED</option>
+                    <option value="covid">Covid Longa</option>
+                    <option value="sono">Medicina do Sono</option>
+                    <option value="casos">Casos Clínicos</option>
+                    <option value="investigacao">Investigação Diagnóstica</option>
+                </select>
+            </div>
+            
+            <!-- TAGS -->
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Tags</h3>
+                <input type="text" id="tagInput" class="form-input" placeholder="Digite e pressione Enter">
+                <div class="tags-container" id="tagsContainer"></div>
+            </div>
+            
+            <!-- IMAGEM -->
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Imagem Principal</h3>
+                <div class="image-upload-area" onclick="document.getElementById('imageUpload').click()">
+                    <p>📷 Carregar Imagem</p>
+                    <small>1024x630px recomendado</small>
+                </div>
+                <input type="file" id="imageUpload" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+                <img id="imagePreview" class="image-preview" style="display: none;">
+            </div>
+            
+            <!-- SEO -->
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">SEO</h3>
+                
+                <label class="form-label">Meta Description</label>
+                <textarea id="metaDescription" class="form-input" rows="3" maxlength="160" placeholder="Descrição para SEO (máx 160 caracteres)"></textarea>
+                
+                <label class="form-label" style="margin-top: 1rem;">Palavra-chave</label>
+                <input type="text" id="keyword" class="form-input" placeholder="Palavra-chave principal">
+                
+                <div class="seo-preview">
+                    <div class="seo-title" id="seoPreviewTitle">Título do Post</div>
+                    <div class="seo-url" id="seoPreviewUrl">carinepetry.com.br/blog/titulo-do-post</div>
+                    <div class="seo-description" id="seoPreviewDesc">Meta description aparecerá aqui...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- AI MODAL -->
+    <div class="ai-modal" id="aiModal">
+        <div class="ai-modal-content">
+            <h2 class="ai-modal-header">🤖 Gerador de Conteúdo IA</h2>
+            
+            <div class="form-section">
+                <label class="form-label">Sobre o que você quer escrever?</label>
+                <textarea id="aiPrompt" class="form-input" rows="4" placeholder="Ex: Artigo sobre SAM explicando sintomas, diagnóstico e tratamento"></textarea>
+            </div>
+            
+            <button class="action-btn btn-ai" onclick="generateWithAI()">✨ Gerar Conteúdo</button>
+            <button class="action-btn btn-secondary" onclick="closeAIModal()">Cancelar</button>
+            
+            <div id="aiLoading" style="display: none; text-align: center; margin-top: 2rem;">
+                <div class="loading-spinner">⏳</div>
+                <p style="margin-top: 1rem;">Gerando conteúdo...</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Tags management
+        const tags = [];
+        
+        document.getElementById('tagInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && this.value.trim()) {
+                e.preventDefault();
+                addTag(this.value.trim());
+                this.value = '';
+            }
+        });
+        
+        function addTag(tag) {
+            if (!tags.includes(tag)) {
+                tags.push(tag);
+                renderTags();
+            }
+        }
+        
+        function removeTag(tag) {
+            const index = tags.indexOf(tag);
+            if (index > -1) {
+                tags.splice(index, 1);
+                renderTags();
+            }
+        }
+        
+        function renderTags() {
+            const container = document.getElementById('tagsContainer');
+            container.innerHTML = tags.map(tag => 
+                `<span class="tag-item">${tag} <span class="tag-remove" onclick="removeTag('${tag}')">×</span></span>`
+            ).join('');
+        }
+        
+        // Text formatting
+        function formatText(command, value = null) {
+            document.execCommand(command, false, value);
+            document.getElementById('contentEditor').focus();
+        }
+        
+        function insertLink() {
+            const url = prompt('Digite a URL:');
+            if (url) {
+                formatText('createLink', url);
+            }
+        }
+        
+        // Image upload
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // SEO Preview
+        document.getElementById('postTitle').addEventListener('input', updateSEOPreview);
+        document.getElementById('metaDescription').addEventListener('input', updateSEOPreview);
+        
+        function updateSEOPreview() {
+            const title = document.getElementById('postTitle').value || 'Título do Post';
+            const description = document.getElementById('metaDescription').value || 'Meta description aparecerá aqui...';
+            const slug = title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+            
+            document.getElementById('seoPreviewTitle').textContent = title;
+            document.getElementById('seoPreviewUrl').textContent = `carinepetry.com.br/blog/${slug}`;
+            document.getElementById('seoPreviewDesc').textContent = description;
+        }
+        
+        // AI Modal
+        function openAIModal() {
+            document.getElementById('aiModal').classList.add('active');
+        }
+        
+        function closeAIModal() {
+            document.getElementById('aiModal').classList.remove('active');
+        }
+        
+        // Generate with AI (placeholder - integrate with Claude API)
+        async function generateWithAI() {
+            const prompt = document.getElementById('aiPrompt').value;
+            if (!prompt) {
+                alert('Por favor, descreva o que você quer escrever.');
+                return;
+            }
+            
+            document.getElementById('aiLoading').style.display = 'block';
+            
+            // TODO: Integrate with Claude API
+            // For now, show example
+            setTimeout(() => {
+                alert('Integração com IA estará disponível em breve!\n\nEsta funcionalidade utilizará a API do Claude para gerar conteúdo automaticamente.');
+                document.getElementById('aiLoading').style.display = 'none';
+                closeAIModal();
+            }, 2000);
+        }
+        
+        // Save post
+        function savePost() {
+            const post = {
+                id: Date.now(),
+                title: document.getElementById('postTitle').value,
+                content: document.getElementById('contentEditor').innerHTML,
+                excerpt: document.getElementById('postExcerpt').value,
+                category: document.getElementById('category').value,
+                tags: tags,
+                status: document.querySelector('input[name="status"]:checked').value,
+                metaDescription: document.getElementById('metaDescription').value,
+                keyword: document.getElementById('keyword').value,
+                image: document.getElementById('imagePreview').src || '',
+                date: new Date().toISOString(),
+                views: 0
+            };
+            
+            // Save to localStorage
+            const posts = JSON.parse(localStorage.getItem('blogPosts') || '[]');
+            posts.push(post);
+            localStorage.setItem('blogPosts', JSON.stringify(posts));
+            
+            alert('✅ Post salvo com sucesso!');
+            window.location.href = 'admin_posts.html';
+        }
+        
+        // Preview
+        function previewPost() {
+            alert('Preview será implementado em breve!');
+        }
+        
+        // Check auth
+        if (localStorage.getItem('isAuthenticated') !== 'true') {
+            window.location.href = 'admin_login.html';
+        }
+    </script>
+    
+</body>
+</html>
