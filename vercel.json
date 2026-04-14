@@ -2,15 +2,19 @@
   "version": 2,
   "routes": [
     {
-      "src": "/admin/?",
+      "src": "/admin$",
       "dest": "/admin/index.html"
     },
     {
-      "src": "/blog/?",
+      "src": "/admin/(.+)",
+      "dest": "/admin/$1"
+    },
+    {
+      "src": "/blog$",
       "dest": "/blog.html"
     },
     {
-      "src": "/brandbook/?",
+      "src": "/brandbook$",
       "dest": "/brandbook.html"
     },
     {
@@ -23,5 +27,10 @@
       },
       "continue": true
     }
+  ],
+  "rewrites": [
+    { "source": "/admin", "destination": "/admin/index.html" },
+    { "source": "/blog", "destination": "/blog.html" },
+    { "source": "/brandbook", "destination": "/brandbook.html" }
   ]
 }
